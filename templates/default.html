@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ title }}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <script src="js/jquery-latest.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <link href="css/style.css" rel="stylesheet" media="screen">
+        <script src="js/script.js"></script>         
+    </head>
+    <body>    
+        <div class="container-fluid">
+            {% block heading %}
+            <div class="row-fluid">
+                <h1 class="center">{{ title }}
+                    <a href="settings.html"><i class="icon-cog pull-right the-icons"></i></a>
+                </h1>
+            </div>
+            {% endblock %}
+            <br>
+            {% block content %}
+            <div class="row-fluid">    
+                <div class="span12">                  
+                    <!-- Start input features -->   
+                    <form class="center" action="{{ form_action }}" method="post" name="{{ form_name }}">
+                        <label>Select an item category</label>
+                        <select name="item_category">
+                        <option value ='' selected='selected' disabled='disabled'></option>
+                        {% for item in categories %}
+                        <option value="{{ item }}">{{ item }}</option>
+                        {% endfor %}
+                        </select>
+                        <!-- Enter {{ cat_unique }} Text Box and Alerts-->
+                        <div class="category-unique control-group" style="visibility:hidden; display:none;" id="add_item_2">
+                            <label class="help-inline" id="unique-label">{{ cat_unique }}&nbsp;</label>
+                            <input class="input-medium" name="item_unique" id="string" type="number" placeholder="Enter an item number">
+                            <small><span class="help-inline" id="unique-help"></span></small>
+                        </div>
+                        <!-- Scan Barcode Button -->
+                        <div>
+                            <button class="btn btn-primary" type="button" onmousedown="Android.scanSomething();"><i class="icon-barcode icon-white"></i> Scan Barcode</button>
+                            <!-- Enter ISBN Button -->                            
+                            <button class="btn disabled" type="submit" id="add-item" data-loading-text="Searching"><i class="icon-search"></i> Add Item</button>
+                        </div>
+                    </form>                    
+                </div>                
+                <!-- End input features -->   
+                                 
+                <!-- Alert Box -->
+                <div class="span4" id="alertSpace">
+                </div>
+                <!-- End Alert Box -->
+            </div>  
+            
+            <div class="row-fluid">
+                <div class="span4"></div>
+                <!-- Start Book Boxes Accordion !-->
+                <div class="accordion span4" id="your-items">
+                {% for item in items %}
+                    <!-- New Book Accordion -->    
+                    <div class='accordion-group'>
+                        <div class='accordion-heading'>
+                            <a class='accordion-toggle' data-toggle='collapse' data-parent='#your-items' href='#book{{ item.ISBN }}'>
+                                <strong><span id='title{{ item.ISBN }}'>{{ item.Title }}</span></strong>
+                                 -
+                                <em><span id='author{{ item.ISBN }}'>{{ item.Author }}</span></em>
+                            </a>
+                        </div>
+                        <div id='book{{ item.ISBN }}' class='accordion-body collapse'>
+                            <div class='accordion-inner'>
+                                <!-- Start Book Box -->
+                                <div class='modal-body'>
+                                    <!-- Image -->
+                                    <div class='span2 center'>
+                                        <img src='{{ item.Image }}' class='img-polaroid' id='image{{ item.ISBN }}'>
+                                    </div>
+                                    <!-- Book Details -->
+                                    <div class='span10'>
+                                        <blockquote><p id='description{{ item.ISBN }}'>{{ item.Descrioption }}</p></blockquote>
+                                    </div>
+                                </div>
+                                <div class='modal-footer'>
+                                    <!-- Notification On/Off Buttons -->
+                                    <button type='button' class='btn btn-success' id='notifications"+isbn+"' onmousedown='switchNotifications("+isbn+");'>
+                                        <i class='icon-ok icon-white'></i>
+                                    </button>
+                                    <button type='button' class='btn btn-inverse deleteItem' onclick='deleteItem({{ item.Item_ID }});'>Delete {{ item.Category }}</button>
+                                    <button type='button' class='btn btn-info'>Add to Wishlist</button>
+                                </div>
+                                <!-- End Book Box -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of one Book Accordion -->
+                {% endfor %}
+                </div>
+                <!-- End Accordion Scanned Books -->
+                <div class="span4"></div>
+            </div>    
+            {% endblock %}
+        </div>
+    </body>
+</html>
+
+<!-- Button to trigger modal -->
+
+ 
+<!-- Modal -->
+<div id="searchModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>One fine body?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Save changes</button>
+  </div>
+</div>
