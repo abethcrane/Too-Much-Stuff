@@ -1,4 +1,4 @@
-#!/usr/bin/python
+ #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
 # enable debugging
@@ -36,7 +36,7 @@ def make_cookie(db):
     expiration = datetime.datetime.now() + datetime.timedelta(days=30)
     cookie = Cookie.SimpleCookie()
     cookie["session"] = generate_session_id(db)
-    cookie["session"]["domain"] = "ndrewsemler.com"
+    cookie["session"]["domain"] = "toomuchstuff.bethanycrane.com"
     cookie["session"]["path"] = "/"
     cookie["session"]["expires"] = expiration.strftime("%a, %d-%b-%Y %H:%M:%S PST")
     return cookie
@@ -58,7 +58,7 @@ def validate_user(db, user, user_pass):
 def main():
     
     print "Content-Type: text/html"
-    con = sqlite3.connect("/var/www/itemLibrary/test.db")
+    con = sqlite3.connect("/test.db")
     with con:
         db = con.cursor()
         form = cgi.FieldStorage()
