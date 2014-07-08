@@ -58,7 +58,7 @@ def validate_user(db, user, user_pass):
 def main():
     
     print "Content-Type: text/html"
-    con = sqlite3.connect("/test.db")
+    con = sqlite3.connect("~/toomuchstuff.bethanycrane.com/test.db")
     with con:
         db = con.cursor()
         form = cgi.FieldStorage()
