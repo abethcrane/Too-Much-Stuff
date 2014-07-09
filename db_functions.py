@@ -29,11 +29,11 @@ def return_items(db, user_id, item_type="Books"):
 def get_user_id(db):
     try:
         cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
-        print cookie
-        if result is not None:
-            user_id = result["User_ID"]
-        else:
-            user_id = None
+        user_id = cookie["user_ID"]
+        #if result is not None:
+        #    user_id = result["User_ID"]
+        #else:
+        #    user_id = None
     except (Cookie.CookieError, KeyError):
         user_id = None
 

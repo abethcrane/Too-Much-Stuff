@@ -18,6 +18,7 @@ def main():
 	print """
 <head>
     <script src="js/jquery-latest.js"></script>
+    <script src="js/jquery.cookie.js"></script>
     <script src="js/fbsdk.js"></script>
 </head>
 <body>

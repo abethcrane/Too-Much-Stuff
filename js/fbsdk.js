@@ -46,6 +46,11 @@ function statusChangeCallback(response) {
 	if (response.status === 'connected') {
 		// Logged into your app and Facebook.
 		testAPI();
+		FB.api(path, method, params, callback)
+		FB.api('/debug_token', 'get', { input_token: $.cookie("fbsr_1492256340991855"), access_token: "1492256340991855" }, function(response) {
+			console.log(response);
+			$.cookie("user_ID", response["data"]["user_id"], { expires : response["data"]["expires_at"] });
+		});
 		location.replace('/dashboard.py');
 	} else if (response.status === 'not_authorized') {
 		// The person is logged into Facebook, but not your app.
