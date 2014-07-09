@@ -84,7 +84,8 @@ def get_user_id(db):
             if user_id is None:
                 add_user(db, data["user_id"])
                 user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(data["user_id"],), one=True)
-
+			
+			user_id = user_id["User_ID"]
             #user_id_cookie = Cookie.SimpleCookie()
             #user_id_cookie["user_ID"] = data["user_id"]
             #user_id_cookie["user_ID"]["expires"] = data["expires_at"]
