@@ -58,8 +58,9 @@ def main():
         auth = None
         
         if 'authenticated' in form:
-            auth = form.getvalue('authenticated')
-            if auth.status is "connected":
+        auth = form.getvalue('authenticated')
+        
+        if auth is not None and auth.status is "connected":
             	console.log('hoorah, connected');
                 cookie = make_cookie(db, auth["authResponse"])
                 store_cooke(db, auth["authResponse"]["userID"], cookie)
