@@ -52,23 +52,26 @@ def get_user_id(db):
         lens = len(auth[1])
         lenx = lens - (lens % 4 if lens % 4 else 4)
         payload = base64.urlsafe_b64decode(auth[1][:lenx])
+        payload += "\"}"
         data = json.loads(payload)
         code = data["code"]
         #TODO: Check signatures match
         
-        url = "https://graph.facebook.com/oauth/access_token?client_id={0}&redirect_uri=toomuchstuff.bethanycrane.com&client_secret={1}&code={2}".format(app_id, app_secret, code)
-        # Use this to translate the token into (amongst other things) a user id
+        """
+        url = "https://graph.facebook.com/oauth/access_token?client_id={0}&redirect_uri=http://toomuchstuff.bethanycrane.com&client_secret={1}&code={2}".format(app_id, app_secret, code)
+        # Use this to translate the oauth code into an oauth token
         response = urllib2.urlopen(url)
         data = json.load(response)
         print data
-        #auth = data["
+        #id_token = data["access_token"]
         
-        
-        url = "https://graph.facebook.com/debug_token?input_token={0}&access_token={1}".format(auth, access_token)
+        # Now let's translate the token into (amongst other things) a user id
+        url = "https://graph.facebook.com/debug_token?input_token={0}&access_token={1}".format(id_token, access_token)
         response = urllib2.urlopen(url)
         data = json.load(response)
         print data
-    
+        """
+        
         # If we were successful, create a new cookie to store the db user id (not fb), that expires at the same time as the other
         # Essentially we are caching here for ease
         if "user_id" in data:
