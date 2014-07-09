@@ -23,6 +23,9 @@ def query_db(db, query, args=(), one=False):
 
 def return_items(db, user_id, item_type="Books"):
     item_IDs = query_db(db, "select Item_ID from Owners where User_ID=?", args=(user_id,))
+    if item_IDs is None:
+        return None
+
     items = []
     for i in item_IDs:
         items.append(query_db(db, "select * from Items where Item_ID=?", args=(i['Item_ID'],), one=True))
@@ -75,16 +78,16 @@ def get_user_id(db):
         # If we were successful, create a new cookie to store the db user id (not fb), that expires at the same time as the other
         # Essentially we are caching here for ease
         if "user_id" in data:
-            user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(data["user_id"]), one=True)
+            user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(data["user_id"],), one=True)
 
             # This must be a new user, create an entry for them
             if user_id is None:
                 add_user(db, data["user_id"])
-                user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(data["user_id"]), one=True)
+                user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(data["user_id"],), one=True)
 
-            user_id_cookie = Cookie.SimpleCookie()
-            user_id_cookie["user_ID"] = data["user_id"]
-            user_id_cookie["user_ID"]["expires"] = data["expires_at"]
+            #user_id_cookie = Cookie.SimpleCookie()
+            #user_id_cookie["user_ID"] = data["user_id"]
+            #user_id_cookie["user_ID"]["expires"] = data["expires_at"]
 
     except (Cookie.CookieError, KeyError):
         user_id = -1
@@ -92,4 +95,4 @@ def get_user_id(db):
     return user_id
     
 def add_user(db, fb_id):
-    effect_db(db, "insert into Users(FB_ID) Values(?)", (fb_id))
+    effect_db(db, "insert into Users(FB_ID) Values(?)", (fb_id,))
