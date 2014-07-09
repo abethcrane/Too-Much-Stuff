@@ -52,10 +52,9 @@ def get_user_id(db):
         lens = len(auth[1])
         lenx = lens - (lens % 4 if lens % 4 else 4)
         payload = base64.urlsafe_b64decode(auth[1][:lenx])
-        data = json.load(payload)
-        code = data["oauth_token"]
+        data = json.loads(payload)
+        code = data["code"]
         #TODO: Check signatures match
-        
         
         url = "https://graph.facebook.com/oauth/access_token?client_id={0}&redirect_uri=toomuchstuff.bethanycrane.com&client_secret={1}&code={2}".format(app_id, app_secret, code)
         # Use this to translate the token into (amongst other things) a user id
