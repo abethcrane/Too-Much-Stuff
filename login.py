@@ -16,15 +16,15 @@ cgitb.enable()
 def print_login():
    print """
 <head>
-	<script src="js/jquery-latest.js"></script>
-	<script src="js/fbsdk.js"></script>
+    <script src="js/jquery-latest.js"></script>
+    <script src="js/fbsdk.js"></script>
 </head>
 <body>
-	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-	</fb:login-button>
-	<form name="login_form">
-		<input type="hidden" name="authenticated"/>
-	</form>
+    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+    </fb:login-button>
+    <form name="login_form">
+        <input type="hidden" name="authenticated"/>
+    </form>
 </body>"""
 
 def generate_session_id(db):
@@ -42,7 +42,6 @@ def make_cookie(db, user):
     cookie["session"]["domain"] = "toomuchstuff.bethanycrane.com"
     cookie["session"]["path"] = "/"
     cookie["session"]["expires"] = user["expiresIn"]
-	cookie["session"]["access"] = user["accessToken"]
     return cookie
 
 def store_cookie(db, user_id, cookie):
@@ -56,20 +55,20 @@ def main():
         db = con.cursor()
         
         form = cgi.FieldStorage()
-		auth = None
-		
-		if 'authenticated' in form:
-			auth = form.getvalue('authenticated')
-		
-			if auth.status is "connected":
-				cookie = make_cookie(db, auth["authResponse"])
-				store_cooke(db, auth["authResponse"]["userID"], cookie)
-				print "Status: 303 Redirect"
-				print "Location: dashboard.py"
-				print
-				return
-		else:
-			print
+        auth = None
+        
+        if 'authenticated' in form:
+            auth = form.getvalue('authenticated')
+        
+            if auth.status is "connected":
+                cookie = make_cookie(db, auth["authResponse"])
+                store_cooke(db, auth["authResponse"]["userID"], cookie)
+                print "Status: 303 Redirect"
+                print "Location: dashboard.py"
+                print
+                return
+        else:
+            print
             print_login()
 
 if __name__ == "__main__":
