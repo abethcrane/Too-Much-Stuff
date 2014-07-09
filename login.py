@@ -58,7 +58,7 @@ def main():
         auth = None
         
         if 'authenticated' in form:
-        auth = form.getvalue('authenticated')
+        	auth = form.getvalue('authenticated')
         
         if auth is not None and auth.status is "connected":
             	console.log('hoorah, connected');
