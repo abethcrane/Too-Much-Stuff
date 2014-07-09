@@ -26,7 +26,7 @@ def main():
     with con:
         db = con.cursor()
         user_id = get_user_id(db)
-
+		print user_id
         if user_id is not None:
             print template.render(title="Library", cat_unique="", categories=["Book", "DVD"], form_action="/itemLibrary/add_item.py", form_name="addItem", items=return_items(db, user_id))
         else:

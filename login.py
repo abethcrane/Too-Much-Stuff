@@ -15,7 +15,7 @@ cgitb.enable()
 
 def main():
     print "Content-Type: text/html"
-	print """
+    print """
 <head>
     <script src="js/jquery-latest.js"></script>
     <script src="js/jquery.cookie.js"></script>
