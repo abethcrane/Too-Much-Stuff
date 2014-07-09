@@ -17,17 +17,22 @@ cgitb.enable()
 
 def print_login():
     print """
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>
+<head>
+	<script src="js/fbsdk.js"></script>
+</head>
+<body>
+	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+	</fb:login-button>
 
-<div id="status">
-</div>
-<form action="/itemLibrary/login.py" method="post" name="login">
-Username<input type="text" name="userid"/>
-Password<input type="password" name="pswrd"/>
-<input type="submit" onclick="" value="Login"/>
-<input type="reset" value="Cancel"/>
-</form>"""
+	<div id="status">
+	</div>
+	<form action="/itemLibrary/login.py" method="post" name="login">
+		Username<input type="text" name="userid"/>
+		Password<input type="password" name="pswrd"/>
+		<input type="submit" onclick="" value="Login"/>
+		<input type="reset" value="Cancel"/>
+	</form>
+</body>"""
 
 def generate_session_id(db):
     check = 1
