@@ -37,7 +37,7 @@ def get_user_id(db):
     # Access token generated from call to below API
     # https://graph.facebook.com/oauth/access_token?client_id={app-id}&client_secret={app-secret}&grant_type=client_credentials
     access_token="1492256340991855|W8gMh9CZ6mXCwTUVipyhYopdRVU"
-    
+
     try:
         # Read the auth input token from the fb-set cookie
         cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
@@ -53,11 +53,18 @@ def get_user_id(db):
         lenx = lens - (lens % 4 if lens % 4 else 4)
         payload = base64.urlsafe_b64decode(auth[1][:lenx])
         data = json.load(payload)
-        auth = data["oauth_token"]
-        print auth
-        #TODO: Check signatures map
-
+        code = data["oauth_token"]
+        #TODO: Check signatures match
+        
+        
+        url = "https://graph.facebook.com/oauth/access_token?client_id={0}&redirect_uri=toomuchstuff.bethanycrane.com&client_secret={1}&code={2}".format(app_id, app_secret, code)
         # Use this to translate the token into (amongst other things) a user id
+        response = urllib2.urlopen(url)
+        data = json.load(response)
+        print data
+        #auth = data["
+        
+        
         url = "https://graph.facebook.com/debug_token?input_token={0}&access_token={1}".format(auth, access_token)
         response = urllib2.urlopen(url)
         data = json.load(response)
