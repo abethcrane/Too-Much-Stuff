@@ -44,8 +44,11 @@ function statusChangeCallback(response) {
 	// app know the current login status of the person.
 	// Full docs on the response object can be found in the documentation
 	// for FB.getLoginStatus().
+	console.log('original auth value');
 	console.log(document.forms['login_form'].elements['authenticated'].value);
-	document.forms['login_form'].elements['authenticated'].value = response;
+	document.forms['login_form'].elements['authenticated'].value = response.status;
+	document.forms['login_form'].elements['userId'].value = response.authResponse["userID"]
+	document.forms['login_form'].elements['expires'].value = response.authResponse["expiresIn"]
 	if (response.status === 'connected') {
 		// Logged into your app and Facebook.
 		testAPI();
