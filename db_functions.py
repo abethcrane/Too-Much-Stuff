@@ -27,7 +27,7 @@ def return_items(db, user_id, item_type="Books"):
 
 
 def get_user_id(db):
-	user_id = None
+    user_id = None
     try:
         cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
         user_id = cookie["user_ID"]
