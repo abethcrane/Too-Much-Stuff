@@ -17,6 +17,11 @@ cgitb.enable()
 
 def print_login():
     print """
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
+<div id="status">
+</div>
 <form action="/itemLibrary/login.py" method="post" name="login">
 Username<input type="text" name="userid"/>
 Password<input type="password" name="pswrd"/>
