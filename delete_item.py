@@ -20,7 +20,7 @@ def delete_item(db, user_id, item_id):
 
 def main():
    # Get the params
-   # Delete the user item thing
+   # Delete the user's requested item
     print "Content-Type: text/html"
     
     con = sqlite3.connect("test.db")
@@ -34,7 +34,7 @@ def main():
         if "id" in form:
             item_id = form.getvalue("id")
 
-        if user_id is not None and item_id is not None: #item_cat is not None and item_unique is not None:
+        if user_id is not None and item_id is not None:
             delete_item(db, user_id, item_id)
             print
         else:

@@ -1,11 +1,12 @@
 #!/usr/bin/python
 
-import base64
 import Cookie
 import json
 import os
 import sqlite3
 import urllib2
+
+from fb_functions import *
 
 def effect_db(db, action, args=()):
     db.execute(action, args)
@@ -30,10 +31,13 @@ def return_items(db, user_id, item_type="Books"):
     for i in item_IDs:
         items.append(query_db(db, "select * from Items where Item_ID=?", args=(i['Item_ID'],), one=True))
     return items
-
+    
+def add_user(db, fb_id):
+    effect_db(db, "insert into Users(FB_ID) Values(?)", (fb_id,))
 
 def get_user_id(db):
     user_id = None
+    auth = None
     app_id = "1492256340991855"
     app_secret = "9c56bc1468a886c8d7fc986f3c3930e3"
     
@@ -49,33 +53,9 @@ def get_user_id(db):
             
         if auth is not None:
             # We now parse the signed request in order to get the actual oauth token
-            auth = auth.split('.')
-            lens = len(auth[0])
-            lenx = lens - (lens % 4 if lens % 4 else 4)
-            postcode = base64.urlsafe_b64decode(auth[0][:lenx])
-            lens = len(auth[1])
-            lenx = lens - (lens % 4 if lens % 4 else 4)
-            payload = base64.urlsafe_b64decode(auth[1][:lenx])
-            payload += "\"}"
-            data = json.loads(payload)
+            data = parse_signed_request(auth)
             code = data["code"]
-            #TODO: Check signatures match
-        
-            """
-            url = "https://graph.facebook.com/oauth/access_token?client_id={0}&redirect_uri=http://toomuchstuff.bethanycrane.com&client_secret={1}&code={2}".format(app_id, app_secret, code)
-            # Use this to translate the oauth code into an oauth token
-            response = urllib2.urlopen(url)
-            data = json.load(response)
-            print data
-            #id_token = data["access_token"]
-        
-            # Now let's translate the token into (amongst other things) a user id
-            url = "https://graph.facebook.com/debug_token?input_token={0}&access_token={1}".format(id_token, access_token)
-            response = urllib2.urlopen(url)
-            data = json.load(response)
-            print data
-            """
-        
+
             # If we were successful, create a new cookie to store the db user id (not fb), that expires at the same time as the other
             # Essentially we are caching here for ease
             if "user_id" in data:
@@ -95,6 +75,3 @@ def get_user_id(db):
         user_id = -1
 
     return user_id
-    
-def add_user(db, fb_id):
-    effect_db(db, "insert into Users(FB_ID) Values(?)", (fb_id,))
