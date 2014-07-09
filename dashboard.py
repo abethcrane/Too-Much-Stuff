@@ -16,7 +16,6 @@ cgitb.enable()
 
 def main():
     print "Content-type: text/html; charset=utf-8"
-    print
     template_dir=os.path.join(os.path.dirname(__file__),"templates")
     env=Environment(loader=FileSystemLoader(template_dir),autoescape=True)
     template = env.get_template('default.html')
@@ -26,11 +25,12 @@ def main():
     with con:
         db = con.cursor()
         user_id = get_user_id(db)
-        print user_id
         if user_id is not None:
+            print
             print template.render(title="Library", cat_unique="", categories=["Book", "DVD"], form_action="/add_item.py", form_name="addItem", items=return_items(db, user_id))
         else:
-            print "session cookie not set!"
+            print "Status: 303 Redirect"
+            print "Location: login.py"
 
 if __name__ == "__main__":
     main()
