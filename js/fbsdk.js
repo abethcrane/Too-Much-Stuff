@@ -46,7 +46,7 @@ function statusChangeCallback(response) {
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
         testAPI();
-        document.cookie = "access_token="+response.authResponse.accessToken;
+        document.cookie = "identity_token="+response.authResponse.accessToken;
         location.replace('/dashboard.py');
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.

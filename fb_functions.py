@@ -2,7 +2,7 @@
 
 import base64
 
-def parse_signed_requests(auth):
+def parse_signed_request(auth):
     # Auth looks like {postcard}.{payload}
     # e.g. asdlfk2340jasldf.as3492384
     auth = auth.split('.')
