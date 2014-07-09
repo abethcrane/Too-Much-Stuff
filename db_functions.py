@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import base64
 import Cookie
 import json
 import os
@@ -41,10 +42,19 @@ def get_user_id(db):
         # Read the auth input token from the fb-set cookie
         cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
         if "fbsr_1492256340991855" in cookie:
-            auth = cookie["fbsr_1492256340991855"]
+            auth = cookie["fbsr_1492256340991855"].value
             
+        # We now parse the signed request in order to get the actual oauth token
+        auth = auth.split('.')
+        postcode = base64.urlsafe_b64decode(auth[0])
+        payload = base64.urlsafe_b64decode(auth[1])
+        data = json.load(payload)
+        auth = data["oauth_token"]
+        
+        #TODO: Check signatures map
+
         # Use this to translate the token into (amongst other things) a user id
-        url = 'https://graph.facebook.com/debug_token?input_token={}&access_token={}'.format(auth, access_token)
+        url = "https://graph.facebook.com/debug_token?input_token={0}&access_token={1}".format(auth, access_token)
         response = urllib2.urlopen(url)
         data = json.load(response)
         print data
