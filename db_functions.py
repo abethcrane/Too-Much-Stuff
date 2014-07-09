@@ -47,10 +47,10 @@ def get_user_id(db):
         # We now parse the signed request in order to get the actual oauth token
         auth = auth.split('.')
         lens = len(auth[0])
-		lenx = lens - (lens % 4 if lens % 4 else 4)
+        lenx = lens - (lens % 4 if lens % 4 else 4)
         postcode = base64.urlsafe_b64decode(auth[0][:lenx])
         lens = len(auth[1])
-		lenx = lens - (lens % 4 if lens % 4 else 4)
+        lenx = lens - (lens % 4 if lens % 4 else 4)
         payload = base64.urlsafe_b64decode(auth[1][:lenx])
         data = json.load(payload)
         auth = data["oauth_token"]
