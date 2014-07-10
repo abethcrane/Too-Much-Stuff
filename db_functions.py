@@ -49,13 +49,13 @@ def get_user_id(db):
         # Read the user id from the cookie we set at login
         cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
 
-		if "user_id" in cookie:
-			user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(cookie["user_id"].value,), one=True)
+        if "user_id" in cookie:
+            user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(cookie["user_id"].value,), one=True)
 
-			# This must be a new user, create an entry for them
-			if user_id is None:
-				add_user(db, data["user_id"])
-				user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(data["user_id"],), one=True)
+            # This must be a new user, create an entry for them
+            if user_id is None:
+                add_user(db, data["user_id"])
+                user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(data["user_id"],), one=True)
 
     except (Cookie.CookieError, KeyError):
         user_id = -1
