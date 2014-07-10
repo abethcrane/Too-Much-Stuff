@@ -22,7 +22,7 @@ def main():
     <script src="js/fbsdk.js"></script>
 </head>
 <body>
-    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+    <fb:login-button scope="public_profile,email,user_friends" onlogin="checkLoginState();">
     </fb:login-button>
 </body>"""
 

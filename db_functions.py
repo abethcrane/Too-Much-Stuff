@@ -51,13 +51,14 @@ def get_user_id(db):
 
         if "user_id" in cookie:
             user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(cookie["user_id"].value,), one=True)
-            user_id = user_id["User_ID"]
             
             # This must be a new user, create an entry for them
             if user_id is None:
                 add_user(db, data["user_id"])
                 user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(cookie["user_id"].value,), one=True)
-                user_id = user_id["User_ID"]
+            
+            if user_id is not None:    
+	            user_id = user_id["User_ID"]
 
     except (Cookie.CookieError, KeyError):
         user_id = -1
