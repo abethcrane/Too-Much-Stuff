@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import base64
+import json
 
 def parse_signed_request(auth):
     # Auth looks like {postcard}.{payload}
