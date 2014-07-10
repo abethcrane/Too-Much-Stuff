@@ -29,8 +29,8 @@ def return_items(db, user_id, item_type="Books"):
 
     items = []
     for i in item_IDs:
-	    items.append(query_db(db, "select Title,Author from Items where Item_ID=?", args=(i['Item_ID'],), one=True))
-	print items
+        items.append(query_db(db, "select Title,Author from Items where Item_ID=?", args=(i['Item_ID'],), one=True))
+    print items
     return items
     
 def add_user(db, fb_id):
@@ -59,7 +59,7 @@ def get_user_id(db):
                 user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(cookie["user_id"].value,), one=True)
             
             if user_id is not None:    
-	            user_id = user_id["User_ID"]
+                user_id = user_id["User_ID"]
 
     except (Cookie.CookieError, KeyError):
         user_id = -1
