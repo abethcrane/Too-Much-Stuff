@@ -27,7 +27,7 @@ def main():
             env=Environment(loader=FileSystemLoader(template_dir),autoescape=True)
             template = env.get_template('default.html')
             print
-            print template.render(title="Library", cat_unique="", categories=["Book", "DVD"], form_action="/add_item.py", form_name="addItem", attributes=["Title, Author"], items=return_items(db, user_id))
+            print template.render(title="Library", cat_unique="", categories=["Book", "DVD"], form_action="/add_item.py", form_name="addItem", attributes=["Author", "Title"], items=return_items(db, user_id))
         else:
             print "Status: 303 Redirect"
             print "Location: login.py"
