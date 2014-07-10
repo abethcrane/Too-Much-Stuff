@@ -4,15 +4,8 @@
     <div class="span12">                  
         <!-- Start input features -->   
         <form class="center" action="{{ form_action }}" method="post" name="{{ form_name }}">
-            <label>Select an item category</label>
-            <select name="item_category">
-            <option value ='' selected='selected' disabled='disabled'></option>
-            {% for item in categories %}
-            <option value="{{ item }}">{{ item }}</option>
-            {% endfor %}
-            </select>
             <!-- Enter {{ cat_unique }} Text Box and Alerts-->
-            <div class="category-unique control-group" style="visibility:hidden; display:none;" id="add_item_2">
+            <div class="category-unique control-group" id="add_item_2">
                 <label class="help-inline" id="unique-label">{{ cat_unique }}&nbsp;</label>
                 <input class="input-medium" name="item_unique" id="string" type="number" placeholder="Enter an item number">
                 <small><span class="help-inline" id="unique-help"></span></small>

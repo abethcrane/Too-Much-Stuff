@@ -117,14 +117,14 @@ def main():
         user_id = get_user_id(db)
         
         form = cgi.FieldStorage()
-        item_cat = None
+        item_cat = "Book" #Use book as the default item category
         item_unique = None
         if 'item_category' in form:
             item_cat = form.getvalue('item_category')
         if 'item_unique' in form:
             item_unique = form.getvalue('item_unique')
 
-        if user_id is not None and item_cat is not None and item_unique is not None:
+        if user_id is not None and item_unique is not None:
             add_item(db, item_cat, item_unique, user_id)
             print "Status: 303 Redirect"
             print "Location: dashboard.py"
