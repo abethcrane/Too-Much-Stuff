@@ -23,7 +23,7 @@ def parse_signed_request(auth):
     
     return data
     
-def list_friends:
+def list_friends():
     friends = None
     
     try:
