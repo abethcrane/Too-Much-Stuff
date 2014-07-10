@@ -30,7 +30,7 @@ def main():
             template = env.get_template('friends_list.html')
 
             print
-            print template.render(title="Friends", headings=["name"], friends=list_friends()) #TODO: call to fb to get friendslist
+            print template.render(title="Friends", headings=["name"], friends=list_friends(db)) #TODO: call to fb to get friendslist
             #TODO: When we click the name to see their list, add them to friends db
 
         else:

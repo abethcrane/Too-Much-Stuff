@@ -6,8 +6,6 @@ import os
 import sqlite3
 import urllib2
 
-from fb_functions import *
-
 def effect_db(db, action, args=()):
     db.execute(action, args)
 

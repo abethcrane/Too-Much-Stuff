@@ -6,6 +6,8 @@ import json
 import os
 import urllib2
 
+from db_functions import *
+
 def parse_signed_request(auth):
     # Auth looks like {postcard}.{payload}
     # e.g. asdlfk2340jasldf.as3492384
@@ -26,7 +28,7 @@ def parse_signed_request(auth):
     
     return data
     
-def list_friends():
+def list_friends(db):
     friends = None
     
     try:
@@ -43,7 +45,7 @@ def list_friends():
         friends = json.load(response)["data"]
 
         for friend in friends:
-            id = query_db(db, "Select User_ID from Users where FB_ID=?", (,), one=True)
+            id = query_db(db, "Select User_ID from Users where FB_ID=?", (friend["id"],), one=True)
             if id is not None:
                 friend["id"] = id["User_ID"]
             else:
