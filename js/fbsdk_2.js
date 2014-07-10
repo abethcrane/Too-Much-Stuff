@@ -23,6 +23,12 @@ $(document).ready( function() {
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
+    $('#logout').on('click', function(event) {
+        FB.logout(function (response) {
+        location.replace('/login.py');
+    });
+});
+
 });
 
 // This is called with the results from from FB.getLoginStatus().
@@ -61,12 +67,5 @@ function checkLoginState() {
 function WelcomeName() {
     FB.api('/me', function(response) {
         $('#username').text("Hi "+response.name+"!");
-    });
-}
-
-function fbLogout() {
-    FB.logout(function (response) {
-        //Do what ever you want here when logged out like reloading the page
-        location.replace('/login.py');
     });
 }
