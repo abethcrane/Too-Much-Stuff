@@ -9,9 +9,7 @@
         </tr>
         {% for friend in friends %}
         <tr>
-            {% for key, value in friend.iteritems() %}
-            <td>{{value}}</td>
-            {% endfor %}
+            <td>{{friend.name}}</td>
         </tr>
         {% endfor %}
     </table>

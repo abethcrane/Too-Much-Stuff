@@ -4,6 +4,7 @@ import base64
 import Cookie
 import json
 import os
+import urllib2
 
 def parse_signed_request(auth):
     # Auth looks like {postcard}.{payload}
@@ -39,8 +40,8 @@ def list_friends():
         url = "https://graph.facebook.com/me/friends?access_token={0}".format(auth)
         # Use this to translate the oauth code into an oauth token
         response = urllib2.urlopen(url)
-        friends = json.load(response)
-        print friends
+        friends = json.load(response)["data"]
+
     except (Cookie.CookieError, KeyError):
         friends = None
         
