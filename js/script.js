@@ -22,11 +22,11 @@ $(document).ready( function() {
         $('#string').text(newISBN);
         errorCode = validISBN(newISBN);
         if (errorCode == "Valid ISBN") {
-            $(".category-unique").removeClass("error").addClass("success");
+            $("#unique-help").removeClass("text-danger").addClass("text-success");
             $("#unique-help").text(errorCode);
             $("#add-item").removeClass("disabled");
         } else{
-            $(".category-unique").removeClass("success").addClass("error");
+            $("#unique-help").removeClass("text-success").addClass("text-danger");
             $('#unique-help').text(errorCode);
             $('#add-item').addClass("disabled");
         }

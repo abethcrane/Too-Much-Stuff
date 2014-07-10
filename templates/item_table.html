@@ -1,30 +1,32 @@
 {% extends "default.html" %}
 {% block content %}
-<div class="row-fluid">    
-    <div class="span12">                  
-        <!-- Start input features -->   
+<!-- Add new books --> 
+<div class="row-fluid">
+    <!-- Start input features -->
+    <div class="span12">
         <form class="center" action="{{ form_action }}" method="post" name="{{ form_name }}">
             <!-- Enter ISBN Text Box and Alerts-->
             <div class="category-unique control-group" style="visibility:visible; display: block;" id="add_item_2">
                 <label class="help-inline" id="unique-label">ISBN&nbsp;</label>
-                <input class="input-medium" name="item_unique" id="string" type="number" placeholder="Enter an item number">
+                <input class="input-medium" name="item_unique" id="string" type="number" placeholder="Enter an ISBN">
                 <small><span class="help-inline" id="unique-help"></span></small>
             </div>
             <!-- Scan Barcode Button -->
             <div>
                 <button class="btn btn-primary" type="button" onmousedown="Android.scanSomething();"><i class="icon-barcode icon-white"></i> Scan Barcode</button>
-                <!-- Enter ISBN Button -->                            
-                <button class="btn disabled" type="submit" id="add-item" data-loading-text="Searching"><i class="icon-search"></i> Add Item</button>
+                <!-- Enter ISBN Button -->
+                <button class="btn disabled" type="submit" id="add-item" data-loading-text="Searching"><i class="icon-search"></i>Add Item</button>
             </div>
-        </form>                    
-    </div>                
-    <!-- End input features -->   
-                 
+        </form>
+    </div>
+    <!-- End input features -->
+    
     <!-- Alert Box -->
     <div class="span4" id="alertSpace">
     </div>
     <!-- End Alert Box -->
 </div>
+<br/>
 <div class = "table-responsive">
     <table class="table table-striped table-bordered table-centered table-min">
         <tr>
@@ -41,4 +43,4 @@
         {% endfor %}
     </table>
 </div>
-{% endblock %}
+{% endblock content %}
