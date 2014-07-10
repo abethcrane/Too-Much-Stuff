@@ -64,51 +64,20 @@
                 <!-- End Alert Box -->
             </div>  
             
-            <div class="row-fluid">
-                <div class="span4"></div>
-                <!-- Start Book Boxes Accordion !-->
-                <div class="accordion span4" id="your-items">
+            <table>
+                <tr>
+                    {% for attribute in attributes %}
+                    <th>{{attribute.name}}</th>
+                    {% endfor %}
+                </tr>
                 {% for item in items %}
-                    <!-- New Book Accordion -->    
-                    <div class='accordion-group'>
-                        <div class='accordion-heading'>
-                            <a class='accordion-toggle' data-toggle='collapse' data-parent='#your-items' href='#book{{ item.ISBN }}'>
-                                <strong><span id='title{{ item.ISBN }}'>{{ item.Title }}</span></strong>
-                                 -
-                                <em><span id='author{{ item.ISBN }}'>{{ item.Author }}</span></em>
-                            </a>
-                        </div>
-                        <div id='book{{ item.ISBN }}' class='accordion-body collapse'>
-                            <div class='accordion-inner'>
-                                <!-- Start Book Box -->
-                                <div class='modal-body'>
-                                    <!-- Image -->
-                                    <div class='span2 center'>
-                                        <img src='{{ item.Image }}' class='img-polaroid' id='image{{ item.ISBN }}'>
-                                    </div>
-                                    <!-- Book Details -->
-                                    <div class='span10'>
-                                        <blockquote><p id='description{{ item.ISBN }}'>{{ item.Descrioption }}</p></blockquote>
-                                    </div>
-                                </div>
-                                <div class='modal-footer'>
-                                    <!-- Notification On/Off Buttons -->
-                                    <button type='button' class='btn btn-success' id='notifications"+isbn+"' onmousedown='switchNotifications("+isbn+");'>
-                                        <i class='icon-ok icon-white'></i>
-                                    </button>
-                                    <button type='button' class='btn btn-inverse deleteItem' onclick='deleteItem({{ item.Item_ID }});'>Delete {{ item.Category }}</button>
-                                    <button type='button' class='btn btn-info'>Add to Wishlist</button>
-                                </div>
-                                <!-- End Book Box -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End of one Book Accordion -->
+                <tr>
+                    {% for key, value in item.items %}
+                    <td>{{value}}</td>
+                    {% endfor %}
+                </tr>
                 {% endfor %}
-                </div>
-                <!-- End Accordion Scanned Books -->
-                <div class="span4"></div>
-            </div>    
+            </table>
             {% endblock %}
         </div>
     </body>

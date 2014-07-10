@@ -34,11 +34,11 @@ def list_friends():
         if "access_token" in cookie:
             auth = cookie["access_token"].value
             
-        url = "https://graph.facebook.com/{0}/friends".format(auth)
+        url = "https://graph.facebook.com/me/friends?access_token={0}".format(auth)
         # Use this to translate the oauth code into an oauth token
         response = urllib2.urlopen(url)
-        data = json.load(response)
-        print data
+        friends = json.load(response)
+        print friends
             
     except (Cookie.CookieError, KeyError):
         friends = None
