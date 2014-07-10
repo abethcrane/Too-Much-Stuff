@@ -41,7 +41,9 @@ def main():
                 is_friend = query_db(db, "select * from Friends where User_ID=? AND Friend_ID=?", args=(user_id, friend_id,), one=True)
                 if is_friend is not None:
                     # Display that user's data
-                    friend_name = query_db(db, "select name from Users where User_ID=?", args=(friend_id,), one = True)["name"]
+                    friend_name = query_db(db, "select name from Users where User_ID=?", args=(friend_id,), one = True)
+                    if friend_name is not None:
+                        friend_name = friend_name["name"]
                     template = env.get_template('item_table_friend.html')
                     template_dict = {title:"{0}'s Library".format(friend_name), attributes:["Author", "Title"], items:return_items(db, friend_id)}
                 
