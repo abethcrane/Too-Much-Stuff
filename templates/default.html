@@ -63,21 +63,22 @@
                 </div>
                 <!-- End Alert Box -->
             </div>  
-            
-            <table>
-                <tr>
-                    {% for attribute in attributes %}
-                    <th>{{attribute.name}}</th>
+            <div class = "table-responsive">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        {% for attribute in attributes %}
+                        <th>{{attribute}}</th>
+                        {% endfor %}
+                    </tr>
+                    {% for item in items %}
+                    <tr>
+                        {% for key, value in item.iteritems() %}
+                        <td>{{value}}</td>
+                        {% endfor %}
+                    </tr>
                     {% endfor %}
-                </tr>
-                {% for item in items %}
-                <tr>
-                    {% for key, value in item.iteritems() %}
-                    <td>{{value}}</td>
-                    {% endfor %}
-                </tr>
-                {% endfor %}
-            </table>
+                </table>
+            </div>
             {% endblock %}
         </div>
     </body>
