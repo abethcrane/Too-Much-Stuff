@@ -1,3 +1,12 @@
 .center {
     text-align: center;
 }
+
+.table-centered {
+    margin: 0 auto;
+    float: none;
+}
+
+.table-min {
+    width: auto;
+}
