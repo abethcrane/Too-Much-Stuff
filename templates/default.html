@@ -15,11 +15,12 @@
         {% block nav %}
         <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
             <div class="container">
+                <span id="settings"><a href="settings.html"><i class="icon-cog pull-right the-icons"></i></a></span>
                 <span id="fbLogout" onclick="fbLogout()">
                     <a class="fb_button fb_button_medium"><span class="fb_button_text">Logout</span></a>
                 </span>
                 <span id="username"></span>
-                <span id="settings"><a href="settings.html"><i class="icon-cog pull-right the-icons"></i></a></span>
+                
             </div>
         </nav>
         {% endblock %}

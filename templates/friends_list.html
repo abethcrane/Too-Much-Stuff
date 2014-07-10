@@ -1,0 +1,19 @@
+{% extends "default.html" %}
+{% block content %}
+<div class = "table-responsive">
+    <table class="table table-striped table-bordered table-centered table-min">
+        <tr>
+            {% for heading in headings %}
+            <th>{{heading}}</th>
+            {% endfor %}
+        </tr>
+        {% for friend in friends %}
+        <tr>
+            {% for key, value in friend.iteritems() %}
+            <td>{{value}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

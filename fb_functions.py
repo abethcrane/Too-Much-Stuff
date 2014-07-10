@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import base64
+import Cookie
 import json
 
 def parse_signed_request(auth):
@@ -39,7 +40,6 @@ def list_friends():
         response = urllib2.urlopen(url)
         friends = json.load(response)
         print friends
-            
     except (Cookie.CookieError, KeyError):
         friends = None
         
