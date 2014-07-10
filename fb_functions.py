@@ -3,6 +3,7 @@
 import base64
 import Cookie
 import json
+import os
 
 def parse_signed_request(auth):
     # Auth looks like {postcard}.{payload}
