@@ -55,3 +55,10 @@ def list_friends(db):
         friends = None
         
     return friends
+    
+def get_name(fb_id, auth):
+    url = "https://graph.facebook.com/{0}?access_token={1}".format(fb_id, auth)
+    # Use this to translate the oauth code into an oauth token
+    response = urllib2.urlopen(url)
+    data = json.load(response)
+    return data["name"]

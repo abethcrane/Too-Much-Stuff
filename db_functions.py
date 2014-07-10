@@ -6,6 +6,8 @@ import os
 import sqlite3
 import urllib2
 
+from fb_functions import *
+
 def effect_db(db, action, args=()):
     db.execute(action, args)
 
@@ -30,8 +32,8 @@ def return_items(db, user_id, item_type="Books"):
         items.append(query_db(db, "select Title,Author from Items where Item_ID=?", args=(i['Item_ID'],), one=True))
     return items
     
-def add_user(db, fb_id):
-    effect_db(db, "insert into Users(FB_ID) Values(?)", (fb_id,))
+def add_user(db, fb_id, auth):
+    effect_db(db, "insert into Users(name, FB_ID) Values(?)", (get_name(fb_id,auth), fb_id,))
 
 def get_user_id(db):
     user_id = None
@@ -52,7 +54,7 @@ def get_user_id(db):
             
             # This must be a new user, create an entry for them
             if user_id is None:
-                add_user(db, cookie["user_id"].value)
+                add_user(db, cookie["user_id"].value, cookie["access_token"].value)
                 user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(cookie["user_id"].value,), one=True)
             
             if user_id is not None:    

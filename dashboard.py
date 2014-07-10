@@ -9,6 +9,7 @@ import os
 import sqlite3
 
 from db_functions import *
+from fb_functions import *
 from jinja2 import Template, FileSystemLoader, Environment, PackageLoader
 
 cgitb.enable()
@@ -23,24 +24,29 @@ def main():
         form = cgi.FieldStorage()
        
         user_id = get_user_id(db)
-        display_id = user_id
 
         if user_id is not None:
             template_dir=os.path.join(os.path.dirname(__file__),"templates")
             env=Environment(loader=FileSystemLoader(template_dir),autoescape=True)
+            
+            # Assuming we are displaying our own data
             template = env.get_template('item_table.html')
+            template_dict = {title :"Library", categories:["Book", "DVD"], form_action:"/add_item.py", form_name:"addItem", attributes:["Author", "Title"], items:return_items(db, user_id)}
 
             # If user is specified in url
             if 'friend_id' in form:
                 friend_id = form.getvalue('friend_id')
 
-                # and user is friends with that user (store in db i guess)
+                # And if user is friends with that user (store in db i guess)
                 is_friend = query_db(db, "select * from Friends where User_ID=? AND Friend_ID=?", args=(user_id, friend_id,), one=True)
-                # display that user's stuff, otherwise our own items
-                display_id = friend_id
-
+                if is_friend is not None:
+                    # Display that user's data
+                    friend_name = query_db(db, "select name from Users where User_ID=?", args=(friend_id,), one = True)["name"]
+                    template = env.get_template('item_table_friend.html')
+                    template_dict = {title:"{0}'s Library".format(friend_name), attributes:["Author", "Title"], items:return_items(db, friend_id)}
+                
             print
-            print template.render(title="Library", categories=["Book", "DVD"], form_action="/add_item.py", form_name="addItem", attributes=["Author", "Title"], items=return_items(db, display_id))
+            print template.render(**template_dict)
         else:
             print "Status: 303 Redirect"
             print "Location: login.py"
