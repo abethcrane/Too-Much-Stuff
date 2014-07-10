@@ -20,7 +20,7 @@ def main():
     con = sqlite3.connect(os.path.join(cur_dir, "test.db"))
     with con:
         db = con.cursor()
-       form = cgi.FieldStorage()
+        form = cgi.FieldStorage()
        
         user_id = get_user_id(db)
         display_id = user_id

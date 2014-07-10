@@ -41,11 +41,9 @@ function statusChangeCallback(response) {
     console.log(response);
     // The response object is returned with a status field that lets the
     // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
+    // Full docs on the response object can be found in the documentation for FB.getLoginStatus().
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
-        testAPI();
         document.cookie = "access_token="+response.authResponse.accessToken;
         document.cookie = "user_id="+response.authResponse.userID;
         location.replace('/dashboard.py');
@@ -64,14 +62,5 @@ function statusChangeCallback(response) {
 function checkLoginState() {
     FB.getLoginStatus(function(response) {
         statusChangeCallback(response);
-    });
-}
-
-// Here we run a very simple test of the Graph API after login is
-// successful.    See statusChangeCallback() for when this call is made.
-function testAPI() {
-    console.log('Welcome!    Fetching your information.... ');
-    FB.api('/me', function(response) {
-        console.log('Successful login for: ' + response.name);
     });
 }
