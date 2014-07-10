@@ -31,7 +31,7 @@ def main():
             
             # Assuming we are displaying our own data
             template = env.get_template('item_table.html')
-            template_dict = {"title" :"Library", "categories":["Book", "DVD"], "form_action":"/add_item.py", "form_name":"addItem", "attributes":["Author", "Title"], "items":return_items(db, user_id)}
+            template_dict = {"title" :"My Library", "categories":["Book", "DVD"], "form_action":"/add_item.py", "form_name":"addItem", "attributes":["Author", "Title"], "items":return_items(db, user_id)}
 
             # If user is specified in url
             if 'friend_id' in form:

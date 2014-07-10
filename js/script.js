@@ -1,15 +1,5 @@
 $(document).ready( function() {
 
-    var cat_uniques = {"Book":"ISBN"};
-
-    $("select").change(function () {
-        var value = $(this).val();
-        //var value = item_category.options[item_category.selectedIndex].value;
-        $("#unique-label").text(cat_uniques[value]);
-        $('#add_item_2').css("visibility", "visible");
-        $('#add_item_2').css("display", "block");
-    });
-
     // Activates the alert space
     $(".alert").alert();
 
@@ -18,8 +8,6 @@ $(document).ready( function() {
     
     // Clears the text field and sets the button to searching whilst it submits the form
     $('#add-item').click(function () {
-        //storeBook(blahdata, "9780316228558");            
-        //updateISBNTypeahead($('#string').val());
         var btn = $(this)
         btn.button('loading')
         setTimeout(function () {
@@ -41,15 +29,6 @@ $(document).ready( function() {
             $(".category-unique").removeClass("success").addClass("error");
             $('#unique-help').text(errorCode);
             $('#add-item').addClass("disabled");
-        }
-    });
-
-    $('.the-icons').bind({
-        mouseover: function() {
-            $(this).addClass('icon-white');
-        },
-        mouseout: function() {
-            $(this).removeClass('icon-white');
         }
     });
 });
@@ -105,28 +84,6 @@ function switchNotifications(isbn) {
 function deleteItem(id) {
     $.post("delete_item.py", {id: id}, function() {location.reload();});
 }
-
-// Function called upon scanning/searching for a book
-// Either creates a new book, stores it and displays it, or sends an error message
-function storeBook(data, isbn) {
-    if (checkValid(data) == true) {
-            alert(javaBooks.addBook(d).getIsbn10());
-            // Add the new book to the hash and order array
-            scannedBooks[isbn] = new book(data, isbn);
-            scannedBooksOrder.push(isbn);
-            // Hide all other boxes and display the new one
-            $('.collapse').collapse('hide');
-            $('#your-items').prepend(newBox(scannedBooks[isbn], isbn));            
-            $('#book'+isbn).collapse('show');             
-        $("#alertSpace").html("<div class='alert alert-success'>\
-      <button type='button' class='close' data-dismiss='alert'>x</button>\
-      <strong>Success!</strong> Scanned <em>"+scannedBooks[isbn].title+"</em>\
-      </div>");                         
-    } else {
-        throwError("");
-    }
-}
-
 
 
 // Checks if the ISBN exists
