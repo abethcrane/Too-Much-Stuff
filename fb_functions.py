@@ -22,3 +22,25 @@ def parse_signed_request(auth):
     #TODO: Check signatures match
     
     return data
+    
+def list_friends:
+    friends = None
+    
+    try:
+        auth = None
+        
+        # Read the access token from the fb-set cookie
+        cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
+        if "access_token" in cookie:
+            auth = cookie["access_token"].value
+            
+        url = "https://graph.facebook.com/{0}/friends".format(auth)
+        # Use this to translate the oauth code into an oauth token
+        response = urllib2.urlopen(url)
+        data = json.load(response)
+        print data
+            
+    except (Cookie.CookieError, KeyError):
+        friends = None
+        
+    return friends

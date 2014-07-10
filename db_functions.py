@@ -46,30 +46,16 @@ def get_user_id(db):
     access_token="1492256340991855|W8gMh9CZ6mXCwTUVipyhYopdRVU"
 
     try:
-        # Read the auth input token from the fb-set cookie
+        # Read the user id from the cookie we set at login
         cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
-        if "fbsr_1492256340991855" in cookie:
-            auth = cookie["fbsr_1492256340991855"].value
-            
-        if auth is not None:
-            # We now parse the signed request in order to get the actual oauth token
-            data = parse_signed_request(auth)
-            code = data["code"]
 
-            # If we were successful, create a new cookie to store the db user id (not fb), that expires at the same time as the other
-            # Essentially we are caching here for ease
-            if "user_id" in data:
-                user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(data["user_id"],), one=True)
+		if "user_id" in cookie:
+			user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(cookie["user_id"].value,), one=True)
 
-                # This must be a new user, create an entry for them
-                if user_id is None:
-                    add_user(db, data["user_id"])
-                    user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(data["user_id"],), one=True)
-            
-                user_id = user_id["User_ID"]
-                #user_id_cookie = Cookie.SimpleCookie()
-                #user_id_cookie["user_ID"] = data["user_id"]
-                #user_id_cookie["user_ID"]["expires"] = data["expires_at"]
+			# This must be a new user, create an entry for them
+			if user_id is None:
+				add_user(db, data["user_id"])
+				user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(data["user_id"],), one=True)
 
     except (Cookie.CookieError, KeyError):
         user_id = -1
