@@ -10,3 +10,15 @@
 .table-min {
     width: auto;
 }
+
+#username {
+    float: left;
+}
+
+#settings {
+    float: right;
+}
+
+#fbLogout {
+    float: right;
+}

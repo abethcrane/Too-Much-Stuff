@@ -15,23 +15,20 @@
         {% block nav %}
         <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
             <div class="container">
-            <span id="fbLogout" onclick="fbLogout()">
-                <a class="fb_button fb_button_medium"><span class="fb_button_text">Logout</span></a>
-            </span>
-            <span id="username">
-            </span>
+                <span id="fbLogout" onclick="fbLogout()">
+                    <a class="fb_button fb_button_medium"><span class="fb_button_text">Logout</span></a>
+                </span>
+                <span id="username"></span>
+                <span id="settings"><a href="settings.html"><i class="icon-cog pull-right the-icons"></i></a></span>
             </div>
         </nav>
         {% endblock %}
         <div class="container-fluid">
             {% block heading %}
             <div class="row-fluid">
-                <h1 class="center">{{ title }}
-                    <a href="settings.html"><i class="icon-cog pull-right the-icons"></i></a>
-                </h1>
+                <h1 class="center">{{ title }}</h1>
             </div>
             {% endblock %}
-            <br>
             {% block content %}
 
             {% endblock %}
