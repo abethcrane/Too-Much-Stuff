@@ -42,6 +42,13 @@ def list_friends():
         response = urllib2.urlopen(url)
         friends = json.load(response)["data"]
 
+        for friend in friends:
+            id = query_db(db, "Select User_ID from Users where FB_ID=?", (,), one=True)
+            if id is not None:
+                friend["id"] = id["User_ID"]
+            else:
+                friend["id"] = -1 #TODO
+
     except (Cookie.CookieError, KeyError):
         friends = None
         

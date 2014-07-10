@@ -4,7 +4,6 @@ import cgi
 import cgitb
 import Cookie
 import json
-#import requests
 import sqlite3
 import urllib2
 cgitb.enable()
@@ -16,7 +15,7 @@ cat_uniques = {"Book": "ISBN", "DVD": "ISBN"}
 def add_item(db, item_category, item_unique, user_id):
     # Check if item already exists in items table
 
-    item_exists = query_db(db, "Select * from Items where %s=?" %(cat_uniques[item_category]), (item_unique,), one=True)
+    item_exists = query_db(db, "Select * from Items where {0}=?".format(cat_uniques[item_category]), (item_unique,), one=True)
     does_own = None
     
     if item_exists is None:
@@ -25,14 +24,14 @@ def add_item(db, item_category, item_unique, user_id):
             title, author, image = get_book_data(item_unique)
             effect_db(db, "Insert into Items(Category, ISBN, Title, Author, Image) Values (?, ?, ?, ?, ?)", args=(item_category, item_unique, title, author, image))
         else:
-            effect_db(db, "Insert into Items(Category, %s) Values (?, ?)" %(cat_uniques[item_category]), args=(item_category, item_unique))
+            effect_db(db, "Insert into Items(Category, {0}) Values (?, ?)".format(cat_uniques[item_category]), args=(item_category, item_unique))
     else:
         # Check the user doesn't already own this, if they do skip adding it
         does_own = query_db(db, "Select * from Owners where User_ID=? and Item_ID=?", (user_id, item_exists["Item_ID"]), one=True)
 
     if does_own is None:
         # Add the entry into users
-        item_id = query_db(db, "Select Item_ID from Items where %s=?" %(cat_uniques[item_category]), (item_unique,), one=True)
+        item_id = query_db(db, "Select Item_ID from Items where {0}=?".format(cat_uniques[item_category]), (item_unique,), one=True)
         if item_id is not None:
             item_id = item_id["Item_ID"]
             effect_db(db, "Insert into Owners(User_ID, Item_ID) Values (?, ?)", (user_id, item_id))
@@ -60,10 +59,7 @@ def get_ISBN10(ISBN):
 def lookup_ISBN(ISBN):
     try:
         ISBN10 = get_ISBN10(ISBN)
-        url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + ISBN10
-        #params = {"isbn":ISBN10}
-        #resp = requests.get(url=url, params=params)
-        #data = json.load(resp)
+        url = "https://www.googleapis.com/books/v1/volumes?q=isbn:{0}".format(ISBN10)
         data = json.load(urllib2.urlopen(url))
     except TypeError as e:
         #print "Error; invalid ISBN"

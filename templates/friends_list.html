@@ -9,7 +9,7 @@
         </tr>
         {% for friend in friends %}
         <tr>
-            <td>{{friend.name}}</td>
+            <td><a href="/dashboard.py?{{friend.id}}">{{friend.name}}</a></td>
         </tr>
         {% endfor %}
     </table>
