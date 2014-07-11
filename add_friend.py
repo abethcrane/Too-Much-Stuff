@@ -9,12 +9,10 @@ cgitb.enable()
 
 from db_functions import *
 
-cat_uniques = {"Book": "ISBN", "DVD": "ISBN"}
-
-def delete_item(db, user_id, item_id):
-    """Unlinks the item and user - doesn't remove the item, as that is expensive with look ups"""
-    if item_id is not None:
-        effect_db(db, "Delete from Owners where Item_ID=? and User_ID=?", args=(item_id, user_id))     
+def add_friend(db, user_id, friend_id):
+    #TODO: Fix up the fact that users might cease to be friends
+    if user_id is not None and friend_id is not None:
+        effect_db(db, "Insert into Friends(User_ID, Friend_ID) Values(?,?)", args=(user_id, friend_id,))     
 
 def main():
    # Get the params
@@ -28,12 +26,12 @@ def main():
         
         form = cgi.FieldStorage()
 
-        item_id = None
-        if "id" in form:
-            item_id = form.getvalue("id")
+        friend_id = None
+        if "friend_id" in form:
+            friend_id = form.getvalue("friend_id")
 
-        if user_id is not None and item_id is not None:
-            delete_item(db, user_id, item_id)
+        if user_id is not None and friend_id is not None:
+            add_friend(db, user_id, friend_id)
             print
         else:
             print

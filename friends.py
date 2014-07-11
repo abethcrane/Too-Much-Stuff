@@ -31,7 +31,6 @@ def main():
 
             print
             print template.render(title="Friends", headings=["name"], friends=list_friends(db))
-            #TODO: When we click the name to see their list, add them to friends db
 
         else:
             print "Status: 303 Redirect"

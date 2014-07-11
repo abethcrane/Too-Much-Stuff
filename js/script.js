@@ -31,6 +31,10 @@ $(document).ready( function() {
             $('#add-item').addClass("disabled");
         }
     });
+    
+    $('friend').click(function () {
+        addFriend($(this).attr('id'));
+    }
 });
 
 // Appends an error message to the page
@@ -85,6 +89,9 @@ function deleteItem(id) {
     $.post("delete_item.py", {id: id}, function() {location.reload();});
 }
 
+function addFriend(id) {
+    $.post("add_friend.py", {id: id}, function() {location.reload();});
+}
 
 // Checks if the ISBN exists
 function checkValid(data) {
