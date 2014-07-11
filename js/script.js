@@ -91,7 +91,9 @@ function deleteItem(id) {
 }
 
 function addFriend(id) {
-    $.post("add_friend.py", {id: id}, function() {location.reload();});
+    $.post("add_friend.py", {id: id}, function() {
+        location.replace('/dashboard.py?friend_id='+id);
+    });
 }
 
 // Checks if the ISBN exists
