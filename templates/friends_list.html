@@ -1,6 +1,6 @@
 {% extends "default.html" %}
             {% block content %}
-            {% if friends is defined %}
+            {% if friends|length %}
             <div class = "table-responsive">
                 <table class="table table-striped table-bordered table-centered table-min">
                     <tr>
@@ -12,7 +12,7 @@
                 </table>
             </div>
             {% else %}
-            <p class="center">Unfortunately you have no friends. Perhaps invite them to the app?</p>
+            <p class="center">Unfortunately none of your friends are using this app :(</p>
             {% endif %}
             {% endblock content %}
             

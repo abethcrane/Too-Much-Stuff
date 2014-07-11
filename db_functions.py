@@ -28,9 +28,6 @@ def return_items(db, user_id, item_type="Books"):
     items = []
     for i in item_IDs:
         items.append(query_db(db, "select Title,Author from Items where Item_ID=?", args=(i['Item_ID'],), one=True))
-    
-    if len(items) is 0:
-        items = None
     return items
     
 def add_user(db, fb_id, auth):
