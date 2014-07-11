@@ -36,6 +36,10 @@ $(document).ready( function() {
         addFriend($(this).attr('id'));
     });
     
+    $('.delete').click(function () {
+        deleteItem($(this).attr('id'));
+    });
+    
 });
 
 // Appends an error message to the page
