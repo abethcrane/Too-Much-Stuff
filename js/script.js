@@ -91,7 +91,9 @@ function switchNotifications(isbn) {
 }
 
 function deleteItem(id) {
-    $.post("delete_item.py", {id: id}, function() {location.reload();});
+    $.post("delete_item.py", {id: id}, function() {
+        location.reload();
+    });
 }
 
 function addFriend(id) {
