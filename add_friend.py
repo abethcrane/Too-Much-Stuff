@@ -27,8 +27,8 @@ def main():
         form = cgi.FieldStorage()
 
         friend_id = None
-        if "friend_id" in form:
-            friend_id = form.getvalue("friend_id")
+        if "id" in form:
+            friend_id = form.getvalue("id")
 
         if user_id is not None and friend_id is not None:
             add_friend(db, user_id, friend_id)

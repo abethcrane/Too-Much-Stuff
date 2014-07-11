@@ -34,7 +34,8 @@ $(document).ready( function() {
     
     $('friend').click(function () {
         addFriend($(this).attr('id'));
-    }
+    });
+    
 });
 
 // Appends an error message to the page
