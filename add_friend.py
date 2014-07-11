@@ -12,7 +12,7 @@ from db_functions import *
 def add_friend(db, user_id, friend_id):
     #TODO: Fix up the fact that users might cease to be friends
     # Don't add them if they're already friends
-    if query_db(db, "Select * from Friends where User_ID=? AND Friend_ID=?", args=(user_id, friend_id,)) is None:
+    if query_db(db, "Select * from Friends where User_ID=? AND Friend_ID=?", args=(user_id, friend_id,), one=True) is None:
         effect_db(db, "Insert into Friends(User_ID, Friend_ID) Values(?,?)", args=(user_id, friend_id,))
 
 def main():
