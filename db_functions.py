@@ -33,7 +33,7 @@ def return_items(db, user_id, item_type="Books"):
     return items
     
 def add_user(db, fb_id, auth):
-    effect_db(db, "insert into Users(name, FB_ID) Values(?)", (get_name(fb_id,auth), fb_id,))
+    effect_db(db, "insert into Users(name, FB_ID) Values(?,?)", (get_name(fb_id,auth), fb_id,))
 
 def get_user_id(db):
     user_id = None
