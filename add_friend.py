@@ -12,7 +12,9 @@ from db_functions import *
 def add_friend(db, user_id, friend_id):
     #TODO: Fix up the fact that users might cease to be friends
     if user_id is not None and friend_id is not None:
-        effect_db(db, "Insert into Friends(User_ID, Friend_ID) Values(?,?)", args=(user_id, friend_id,))     
+        # Don't add them if they're already friends
+        if query_db(db, "select * from Friends where User_ID=? AND Friend_ID=?", args=(user_id, friend_id,)) is None:
+            effect_db(db, "Insert into Friends(User_ID, Friend_ID) Values(?,?)", args=(user_id, friend_id,))     
 
 def main():
    # Get the params
