@@ -6,8 +6,6 @@ import os
 import sqlite3
 import urllib2
 
-from fb_functions import *
-
 def effect_db(db, action, args=()):
     db.execute(action, args)
 
@@ -64,3 +62,5 @@ def get_user_id(db):
         user_id = -1
 
     return user_id
+
+from fb_functions import *
