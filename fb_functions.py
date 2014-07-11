@@ -50,6 +50,9 @@ def list_friends(db):
                 friend["id"] = id["User_ID"]
             else:
                 friend["id"] = -1 #TODO
+        
+        if len(friends) is 0:
+            friends = None
 
     except (Cookie.CookieError, KeyError):
         friends = None
