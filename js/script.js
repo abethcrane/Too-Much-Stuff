@@ -32,7 +32,7 @@ $(document).ready( function() {
         }
     });
     
-    $('friend').click(function () {
+    $('.friend').click(function () {
         addFriend($(this).attr('id'));
     });
     
