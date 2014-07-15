@@ -30,8 +30,7 @@ def main():
             template = env.get_template('friends_list.html')
 
             print
-            print template.render("name": get_name_from_cookie(), title="Friends", headings=["name"], friends=list_friends(db))
-
+            print template.render(name=get_name_from_cookie(), title="Friends", headings=["name"], friends=list_friends(db))
         else:
             print "Status: 303 Redirect"
             print "Location: login.py"
