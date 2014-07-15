@@ -46,6 +46,10 @@ function statusChangeCallback(response) {
         // Logged into your app and Facebook.
         document.cookie = "access_token="+response.authResponse.accessToken;
         document.cookie = "user_id="+response.authResponse.userID;
+        FB.api('/me', function(response) {
+            document.cookie = "fb_name="+response.name;
+        });
+        document.cookie = "fb_name="
         location.replace('/dashboard.py');
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.

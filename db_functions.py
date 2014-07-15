@@ -63,4 +63,17 @@ def get_user_id(db):
 
     return user_id
 
+def get_name_from_cookie():
+	name = None
+	
+	try:
+		cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
+        if "fb_name" in cookie:
+        	name = cookie["fb_name"].value
+        
+    except (Cookie.CookieError, KeyError):
+        name = ""
+        
+    return name
+
 from fb_functions import *
