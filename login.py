@@ -18,13 +18,20 @@ def main():
     print """
 <head>
     <script src="js/jquery-latest.js"></script>
-    <script src="js/jquery.cookie.js"></script>
     <script src="js/fbsdk.js"></script>
 </head>
 <body>
     <fb:login-button scope="public_profile,email,user_friends" onlogin="checkLoginState();">
     </fb:login-button>
 </body>"""
+
+    try:
+        # Read the user id from the cookie we set at login
+        cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
+        print cookie
+
+    except (Cookie.CookieError, KeyError):
+        print "argh no cookies"
 
 if __name__ == "__main__":
     main()
