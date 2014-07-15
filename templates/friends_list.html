@@ -4,7 +4,7 @@
             <div class = "table-responsive">
                 <table class="table table-striped table-bordered table-centered table-min center">
                     <tr>
-                        {% for heading in headings %}<th>{{heading}}</th>{% endfor %}
+                        {% for heading in headings %}<th class="center">{{heading}}</th>{% endfor %}
                     </tr>
                     {% for friend in friends %}<tr>
                         <td><a class="friend" id="{{friend.id}}">{{friend.name}}</a></td>
