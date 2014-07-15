@@ -15,7 +15,7 @@
                     <a class="navbar-brand" href="/dashboard.py">Too Much Stuff</a>
                 </div>
                 <div class="navbar-collapse">
-                    <p class="navbar-text" id="username">{{name}}</p>
+                    <p class="navbar-text" id="username">{% if name %}Hi {{name}}!{% endif %}</p>
                     <ul class="nav navbar-nav navbar-right" role="menu">
                         <li><a href="/friends.py">Friends</a></li>
                         <li><a href="/settings.py">Settings <i class="icon-cog icon-white the-icons"></i></a></li>
@@ -45,6 +45,7 @@
         <!-- Main Script -->
         <script src="js/script.js"></script>
         <!-- FB Stuff (For pages other than login.py) -->
-        <script src="js/fbsdk_2.js"></script
+        <script src="js/fbsdk.js"></script>
+        <script src="js/fbsdk_general.js"></script
     </body>
 </html>

@@ -7,21 +7,14 @@ $(document).ready( function() {
             version        : 'v2.0' // use version 2.0
         });
 
-        // Now that we've initialized the JavaScript SDK, we call 
-        // FB.getLoginStatus().    This function gets the state of the
-        // person visiting this page and can return one of three states to
-        // the callback you provide.    They can be:
-        //
-        // 1. Logged into your app ('connected')
-        // 2. Logged into Facebook, but not your app ('not_authorized')
-        // 3. Not logged into Facebook and can't tell if they are logged into
-        //        your app or not.
-        //
-        // These three cases are handled in the callback function.
-
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-        });
+        // If we're on mobile we let the Android side handle logged in stuff
+        if (!window.onMobile) {
+            // Useful to call it on every page in case someone logs out/in of fb to a different account
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        }
+        
     };
 
     // Load the SDK asynchronously
@@ -33,38 +26,27 @@ $(document).ready( function() {
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-});
-
-// This is called with the results from from FB.getLoginStatus().
-function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation for FB.getLoginStatus().
-    if (response.status === 'connected') {
-        // Logged into your app and Facebook.
-        document.cookie = "access_token="+response.authResponse.accessToken;
-        document.cookie = "user_id="+response.authResponse.userID;
-        FB.api('/me', function(response) {
-            document.cookie = "fb_name="+response.name;
+    $('#logout').on('click', function(event) {
+        FB.logout(function (response) {
+            location.replace('/login.py');
         });
-        document.cookie = "fb_name="
-        location.replace('/dashboard.py');
-    } else if (response.status === 'not_authorized') {
-        // The person is logged into Facebook, but not your app.
-        console.log('Please log into this app.');
-    } else {
-        // The person is not logged into Facebook, so we're not sure if
-        // they are logged into this app or not.
-        console.log('Please log into Facebook.');
-    }
-}
+    });
+});
 
 // This function is called when someone finishes with the Login
 // Button.    See the onlogin handler attached to it in the sample code below.
 function checkLoginState() {
     FB.getLoginStatus(function(response) {
         statusChangeCallback(response);
+    });
+}
+
+function setCookies(response) {
+    document.cookie = "access_token="+response.authResponse.accessToken;
+    document.cookie = "user_id="+response.authResponse.userID;
+    FB.api('/me', function(data) {
+        document.cookie = "fb_name="+data.name;
+        // Set the 'hi name' text in case it was blank before
+        $('#username').text("Hi "+data.name+"!");
     });
 }

@@ -19,6 +19,7 @@ def main():
 <head>
     <script src="js/jquery-latest.js"></script>
     <script src="js/fbsdk.js"></script>
+    <script src="js/fbsdk_login.js"></script>
 </head>
 <body>
     <fb:login-button scope="public_profile,email,user_friends" onlogin="checkLoginState();">
