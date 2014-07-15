@@ -1,20 +1,33 @@
 $(document).ready( function() {
 
+    // If Android exists then we're on the mobile app, in which case we use touch
+    if (window.Android) {
+        onMobile = true;
+    // If it doesn't then we set up a mock android (to remove errors if its called)
+    } else {
+        window.Android = new MockAndroid();
+    }
+    
     // Activates the alert space
     $(".alert").alert();
 
     // Activates all buttons
     $('.btn').button();
     
-    // Clears the text field and sets the button to searching whilst it submits the form
-    $('#add-item').click(function () {
-        var btn = $(this)
-        btn.button('loading')
-        setTimeout(function () {
-          btn.button('reset')
-        }, 3000)
-      });
-      
+
+    // Add the actions; but on mobile we use touchend for user friendliness
+    if (onMobile) {
+        $('#add-item').on('touchend', addItem);
+        $('.friend').on('touchend', function () {addFriend($(this).attr('id'));});
+        $('.delete').on('touchend', function () {deleteItem($(this).attr('id'));});
+        $('#scan_button').on('touchend', function () {Android.scanSomething();});
+    } else {
+        $('#add-item').on('click', addItem);
+        $('.friend').on('click', function () {addFriend($(this).attr('id'));});
+        $('.delete').on('click', function () {deleteItem($(this).attr('id'));});
+        $('#scan_button').on('click', function () {Android.scanSomething();});
+    }
+
     // Parse the ISBN String before allowing users to search with it
     // Updates as users type, or click out of the textbox
     $("#string").bind('blur keyup change', function(){
@@ -32,15 +45,13 @@ $(document).ready( function() {
         }
     });
     
-    $('.friend').click(function () {
-        addFriend($(this).attr('id'));
-    });
-    
-    $('.delete').click(function () {
-        deleteItem($(this).attr('id'));
-    });
-    
 });
+
+
+function handleScannedISBN(ISBN) {
+    $('#string').text(ISBN);
+    $('#add-item').click();
+}
 
 // Appends an error message to the page
 function throwError(errorMessage) {
@@ -53,7 +64,6 @@ function throwError(errorMessage) {
         </strong\
     </div>"); 
 }
-
 
 // Strips all non-digits out
 function sanitiseISBN(isbn) {
@@ -72,22 +82,13 @@ function validISBN(isbn) {
     
 }
 
-
-// Toggles the notification button of the ith book box
-function switchNotifications(isbn) {
-    if ($('#notifications'+isbn).hasClass('btn-success')) {
-        $('#notifications'+isbn).addClass('btn-danger');
-        $('#notifications'+isbn).removeClass('btn-success');
-        $('#notifications'+isbn).html("<i class='icon-remove icon-white'</i>");
-    } else {
-        $('#notifications'+isbn).addClass('btn-success');
-        $('#notifications'+isbn).removeClass('btn-danger');
-        $('#notifications'+isbn).html("<i class='icon-ok icon-white'</i>");
-        // If the isbn exists in the hashtable
-        if (scannedBooks.hasOwnProperty(isbn)) {
-            Android.makeNotifications(scannedBooks[isbn].title);        
-        }
-    }
+// Clears the text field and sets the button to searching whilst it submits the form
+function addItem() {
+    var btn = $(this)
+    btn.button('loading')
+    setTimeout(function () {
+      btn.button('reset')
+    }, 3000);
 }
 
 function deleteItem(id) {
