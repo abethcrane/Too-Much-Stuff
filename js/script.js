@@ -25,8 +25,13 @@ $(document).ready( function() {
 	$('#add-item').on(action, addItem);
 	$('.friend').on(action, function () {addFriend($(this).attr('id'));});
 	$('.delete').on(action, function () {deleteItem($(this).attr('id'));});
-	$('#scan_button').on(action, function () {Android.scanSomething();});
-
+	$('#scan_button').on(action, function () {
+		for (var i in Android) {
+			alert(i+":"+Android[i]);
+		}
+		Android.scanSomething();
+	});
+	
     // Parse the ISBN String before allowing users to search with it
     // Updates as users type, or click out of the textbox
     $("#string").bind('blur keyup change', function(){
