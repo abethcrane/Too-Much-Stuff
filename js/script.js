@@ -2,7 +2,7 @@ $(document).ready( function() {
 
     // If Android exists then we're on the mobile app, in which case we use touch
     if (window.Android) {
-        onMobile = true;
+        window.onMobile = true;
     // If it doesn't then we set up a mock android (to remove errors if its called)
     } else {
         window.Android = new MockAndroid();
@@ -16,7 +16,7 @@ $(document).ready( function() {
     
 
     // Add the actions; but on mobile we use touchend for user friendliness
-    if (onMobile) {
+    if (window.onMobile) {
         $('#add-item').on('touchend', addItem);
         $('.friend').on('touchend', function () {addFriend($(this).attr('id'));});
         $('.delete').on('touchend', function () {deleteItem($(this).attr('id'));});
