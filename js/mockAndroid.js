@@ -6,5 +6,6 @@ $.Class.extend("MockAndroid", {
     },
 
     scanSomething: function() {
+        alert ("Woah I am not a phone stahp");
     }
 });

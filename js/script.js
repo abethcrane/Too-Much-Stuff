@@ -17,16 +17,15 @@ $(document).ready( function() {
 
     // Add the actions; but on mobile we use touchend for user friendliness
     if (window.onMobile) {
-        $('#add-item').on('touchend', addItem);
-        $('.friend').on('touchend', function () {addFriend($(this).attr('id'));});
-        $('.delete').on('touchend', function () {deleteItem($(this).attr('id'));});
-        $('#scan_button').on('touchend', function () {Android.scanSomething();});
+    	action = 'touchend';
     } else {
-        $('#add-item').on('click', addItem);
-        $('.friend').on('click', function () {addFriend($(this).attr('id'));});
-        $('.delete').on('click', function () {deleteItem($(this).attr('id'));});
-        $('#scan_button').on('click', function () {Android.scanSomething();});
+    	action = 'click';
     }
+
+	$('#add-item').on(action, addItem);
+	$('.friend').on(action, function () {addFriend($(this).attr('id'));});
+	$('.delete').on(action, function () {deleteItem($(this).attr('id'));});
+	$('#scan_button').on(action, function () {Android.scanSomething();});
 
     // Parse the ISBN String before allowing users to search with it
     // Updates as users type, or click out of the textbox
