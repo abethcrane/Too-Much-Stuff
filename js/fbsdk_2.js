@@ -7,10 +7,13 @@ $(document).ready( function() {
             version        : 'v2.0' // use version 2.0
         });
 
-        // Useful to call it on every page in case someone logs out/in of fb to a different account
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-        });
+        // If we're on mobile we let the Android side handle logged in stuff
+        if (!window.onMobile) {
+            // Useful to call it on every page in case someone logs out/in of fb to a different account
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        }
         
     };
 
