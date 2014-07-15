@@ -6,8 +6,10 @@ function statusChangeCallback(response) {
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation for FB.getLoginStatus().
     if (response.status === 'connected') {
+    	console.log('Connected');
         FB.api('/me', function(data) {
-            setCookies(response.authResponse.accessToken, response.authResponse.UserID, data.name);
+        	console.log(data);
+            setCookies(response.authResponse.accessToken, response.authResponse.userID, data.name);
         });
         location.replace('/dashboard.py');
     } else if (response.status === 'not_authorized') {

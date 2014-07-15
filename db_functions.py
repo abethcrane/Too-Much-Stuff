@@ -71,6 +71,9 @@ def get_name_from_cookie():
         if "fb_name" in cookie:
             name = cookie["fb_name"].value
         
+        if name is "undefined":
+        	name = None
+        
     except (Cookie.CookieError, KeyError):
         name = ""
         

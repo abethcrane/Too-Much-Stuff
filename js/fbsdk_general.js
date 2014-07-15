@@ -8,8 +8,10 @@ function statusChangeCallback(response) {
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
+        console.log('Connected');
         FB.api('/me', function(data) {
-            setCookies(response.authResponse.accessToken, response.authResponse.UserID, data.name);
+            console.log(data);
+            setCookies(response.authResponse.accessToken, response.authResponse.userID, data.name);
         });
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
