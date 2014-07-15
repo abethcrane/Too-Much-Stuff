@@ -41,12 +41,10 @@ function checkLoginState() {
     });
 }
 
-function setCookies(response) {
-    document.cookie = "access_token="+response.authResponse.accessToken;
-    document.cookie = "user_id="+response.authResponse.userID;
-    FB.api('/me', function(data) {
-        document.cookie = "fb_name="+data.name;
-        // Set the 'hi name' text in case it was blank before
-        $('#username').text("Hi "+data.name+"!");
-    });
+function setCookies(auth, id, name) {
+    document.cookie = "access_token="+auth
+    document.cookie = "user_id="+id;
+    document.cookie = "fb_name="+name;
+    // Set the 'hi name' text in case it was blank before
+    $('#username').text("Hi "+name+"!");
 }
