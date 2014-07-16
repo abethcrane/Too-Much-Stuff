@@ -17,18 +17,18 @@ $(document).ready( function() {
 
     // Add the actions; but on mobile we use touchend for user friendliness
     if (window.onMobile) {
-    	action = 'touchend';
+        action = 'touchend';
     } else {
-    	action = 'click';
+        action = 'click';
     }
 
-	$('#add-item').on(action, function () {addItem($('#string').val());});
-	$('.friend').on(action, function () {addFriend($(this).attr('id'));});
-	$('.delete').on(action, function () {deleteItem($(this).attr('id'));});
-	$('#scan_button').on(action, function () {
-		Android.scanSomething();
-	});
-	
+    $('#add-item').on(action, function () {addItem($('#string').val());});
+    $('.friend').on(action, function () {addFriend($(this).attr('id'));});
+    $('.delete').on(action, function () {deleteItem($(this).attr('id'));});
+    $('#scan_button').on(action, function () {
+        Android.scanSomething();
+    });
+    
     // Parse the ISBN String before allowing users to search with it
     // Updates as users type, or click out of the textbox
     $("#string").bind('blur keyup change', function(){

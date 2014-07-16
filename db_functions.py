@@ -21,8 +21,8 @@ def query_db(db, query, args=(), one=False):
         return rv
 
 def add_item(db, item_category, item_unique, user_id):
-	
-	cat_uniques = {"Book": "ISBN", "DVD": "ISBN"}
+    
+    cat_uniques = {"Book": "ISBN", "DVD": "ISBN"}
 
     # Check if item already exists in items table
 
@@ -100,7 +100,7 @@ def get_name_from_cookie():
             name = cookie["fb_name"].value
         
         if name == "undefined":
-        	name = None
+            name = None
         
     except (Cookie.CookieError, KeyError):
         name = ""
