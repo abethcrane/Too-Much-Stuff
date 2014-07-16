@@ -4,7 +4,7 @@
             <div class="row-fluid">
                 <!-- Start input features -->
                 <div class="span12">
-                    <form class="center" action="{{ form_action }}" method="post" name="{{ form_name }}">
+                    <form class="center" method="post" name="{{ form_name }}">
                         <!-- Enter ISBN Text Box and Alerts-->
                         <div class="category-unique control-group" style="visibility:visible; display: block;" id="add_item_2">
                             <label class="help-inline" id="unique-label">ISBN&nbsp;</label>
@@ -15,7 +15,7 @@
                         <div>
                             <button class="btn btn-primary" type="button" id="scan_button"><i class="icon-barcode icon-white"></i> Scan Barcode</button>
                             <!-- Enter ISBN Button -->
-                            <button class="btn disabled" type="submit" id="add-item" data-loading-text="Searching"><i class="icon-search"></i>Add Item</button>
+                            <button class="btn disabled" id="add-item" data-loading-text="Searching"><i class="icon-search"></i>Add Item</button>
                         </div>
                     </form>
                 </div>

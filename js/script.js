@@ -22,12 +22,10 @@ $(document).ready( function() {
     	action = 'click';
     }
 
-	$('#add-item').on(action, addItem);
-	$('.friend').on(action, function () {addFriend($(this).attr('id'));});
-	$('.delete').on(action, function () {deleteItem($(this).attr('id'));});
-	$('#scan_button').on(action, function () {
-		Android.scanSomething();
-	});
+	$('#add-item').on(action, {id: $('#string').val()}, addItem);
+	$('.friend').on(action, {id: $(this).attr('id')}, addFriend;);
+	$('.delete').on(action, {id: $(this).attr('id')}, deleteItem;);
+	$('#scan_button').on(action, Android.scanSomething();});
 	
     // Parse the ISBN String before allowing users to search with it
     // Updates as users type, or click out of the textbox
@@ -84,22 +82,25 @@ function validISBN(isbn) {
 }
 
 // Clears the text field and sets the button to searching whilst it submits the form
-function addItem() {
+function addItem(event) {
     var btn = $(this)
     btn.button('loading')
     setTimeout(function () {
       btn.button('reset')
     }, 3000);
+    $.post("add_item.py", {item_unique: event.data.id}, function() {
+    	location.reload();
+    });
 }
 
-function deleteItem(id) {
-    $.post("delete_item.py", {id: id}, function() {
+function deleteItem(event) {
+    $.post("delete_item.py", {id: event.data.id}, function() {
         location.reload();
     });
 }
 
-function addFriend(id) {
-    $.post("add_friend.py", {id: id}, function() {
+function addFriend(event) {
+    $.post("add_friend.py", {id: event.data.id}, function() {
         location.replace('/dashboard.py?friend_id='+id);
     });
 }

@@ -31,7 +31,7 @@ def main():
             
             # Assuming we are displaying our own data
             template = env.get_template('own_library.html')
-            template_dict = {"name": get_name_from_cookie(), "title" :"My Library", "categories":["Book", "DVD"], "form_action":"/add_item.py", "form_name":"addItem", "attributes":["Author", "Title"], "items":return_items(db, user_id), "own":True}
+            template_dict = {"name": get_name_from_cookie(), "title" :"My Library", "categories":["Book", "DVD"], "form_name":"addItem", "attributes":["Author", "Title"], "items":return_items(db, user_id), "own":True}
 
             # If user is specified in url
             if 'friend_id' in form:
