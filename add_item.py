@@ -117,19 +117,19 @@ def main():
         user_id = get_user_id(db)
         
         form = cgi.FieldStorage()
-        item_cat = "Book" #Use book as the default item category
-        
+
         item_id = None
-        if 'id' in form:
-            item_id = form.getvalue('id')
+        if "id" in form:
+            item_id = form.getvalue("id")
 
         if user_id is not None and item_id is not None:
-            add_item(db, item_cat, item_id, user_id)
+            add_item(db, "Book", item_id, user_id) #Use book as the default item category
             print
         else:
             print
             print "Error, not all fields set"
             print "user_id: {0}, item_id: {1}".format(user_id, item_id)
+            print form
 
 if __name__ == "__main__":
     main()

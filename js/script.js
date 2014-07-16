@@ -88,10 +88,9 @@ function addItem(id) {
     $.post("add_item.py", {id: id}, function() {
         location.reload();
     });
-    var btn = $(this)
-    btn.button('loading')
+    $('#add-item').button('loading')
     setTimeout(function () {
-      btn.button('reset')
+      $('#add-item').button('reset')
     }, 3000);
 }
 
