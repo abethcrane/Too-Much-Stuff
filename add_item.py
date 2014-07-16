@@ -118,21 +118,18 @@ def main():
         
         form = cgi.FieldStorage()
         item_cat = "Book" #Use book as the default item category
-        item_unique = None
-        if 'item_category' in form:
-            item_cat = form.getvalue('item_category')
-        if 'item_unique' in form:
-            item_unique = form.getvalue('item_unique')
+        
+        item_id = None
+        if 'id' in form:
+            item_id = form.getvalue('id')
 
-        if user_id is not None and item_unique is not None:
-            add_item(db, item_cat, item_unique, user_id)
-            print "Status: 303 Redirect"
-            print "Location: dashboard.py"
+        if user_id is not None and item_id is not None:
+            add_item(db, item_cat, item_id, user_id)
             print
         else:
             print
             print "Error, not all fields set"
-            print "user_id: {0}, item_unique: {1}".format(user_id, item_unique)
+            print "user_id: {0}, item_id: {1}".format(user_id, item_id)
 
 if __name__ == "__main__":
     main()

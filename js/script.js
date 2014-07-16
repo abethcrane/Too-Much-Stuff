@@ -85,14 +85,14 @@ function validISBN(isbn) {
 
 // Clears the text field and sets the button to searching whilst it submits the form
 function addItem(id) {
+    $.post("add_item.py", {id: id}, function() {
+        location.reload();
+    });
     var btn = $(this)
     btn.button('loading')
     setTimeout(function () {
       btn.button('reset')
     }, 3000);
-    $.post("add_item.py", {item_unique: id}, function() {
-    	location.reload();
-    });
 }
 
 function deleteItem(id) {
