@@ -23,9 +23,9 @@ $(document).ready( function() {
     }
 
 	$('#add-item').on(action, {id: $('#string').val()}, addItem);
-	$('.friend').on(action, {id: $(this).attr('id')}, addFriend;);
-	$('.delete').on(action, {id: $(this).attr('id')}, deleteItem;);
-	$('#scan_button').on(action, Android.scanSomething();});
+	$('.friend').on(action, {id: $(this).attr('id')}, addFriend);
+	$('.delete').on(action, {id: $(this).attr('id')}, deleteItem);
+	$('#scan_button').on(action, Android.scanSomething);
 	
     // Parse the ISBN String before allowing users to search with it
     // Updates as users type, or click out of the textbox
