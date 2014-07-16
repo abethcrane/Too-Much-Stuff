@@ -12,30 +12,6 @@ from db_functions import *
 
 cat_uniques = {"Book": "ISBN", "DVD": "ISBN"}
 
-def add_item(db, item_category, item_unique, user_id):
-    # Check if item already exists in items table
-
-    item_exists = query_db(db, "Select * from Items where {0}=?".format(cat_uniques[item_category]), (item_unique,), one=True)
-    does_own = None
-    
-    if item_exists is None:
-        #TODO(bethc): Do  a lookup for other relevant fields to insert (e.g. book lookup for title)
-        if item_category == "Book":
-            title, author, image = get_book_data(item_unique)
-            effect_db(db, "Insert into Items(Category, ISBN, Title, Author, Image) Values (?, ?, ?, ?, ?)", args=(item_category, item_unique, title, author, image))
-        else:
-            effect_db(db, "Insert into Items(Category, {0}) Values (?, ?)".format(cat_uniques[item_category]), args=(item_category, item_unique))
-    else:
-        # Check the user doesn't already own this, if they do skip adding it
-        does_own = query_db(db, "Select * from Owners where User_ID=? and Item_ID=?", (user_id, item_exists["Item_ID"]), one=True)
-
-    if does_own is None:
-        # Add the entry into users
-        item_id = query_db(db, "Select Item_ID from Items where {0}=?".format(cat_uniques[item_category]), (item_unique,), one=True)
-        if item_id is not None:
-            item_id = item_id["Item_ID"]
-            effect_db(db, "Insert into Owners(User_ID, Item_ID) Values (?, ?)", (user_id, item_id))
-
 def check_digit(ISBN):
     total = 0
     if len(ISBN) is not 9:
@@ -124,6 +100,8 @@ def main():
 
         if user_id is not None and item_id is not None:
             add_item(db, "Book", item_id, user_id) #Use book as the default item category
+            print "Status: 303 Redirect"
+            print "Location: dashboard.py"
             print
         else:
             print

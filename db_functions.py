@@ -20,6 +20,31 @@ def query_db(db, query, args=(), one=False):
     else:
         return rv
 
+def add_item(db, item_category, item_unique, user_id):
+    # Check if item already exists in items table
+
+    item_exists = query_db(db, "Select * from Items where {0}=?".format(cat_uniques[item_category]), (item_unique,), one=True)
+    does_own = None
+    
+    if item_exists is None:
+        #TODO(bethc): Do  a lookup for other relevant fields to insert (e.g. book lookup for title)
+        if item_category == "Book":
+            title, author, image = get_book_data(item_unique)
+            effect_db(db, "Insert into Items(Category, ISBN, Title, Author, Image) Values (?, ?, ?, ?, ?)", args=(item_category, item_unique, title, author, image))
+        else:
+            effect_db(db, "Insert into Items(Category, {0}) Values (?, ?)".format(cat_uniques[item_category]), args=(item_category, item_unique))
+    else:
+        # Check the user doesn't already own this, if they do skip adding it
+        does_own = query_db(db, "Select * from Owners where User_ID=? and Item_ID=?", (user_id, item_exists["Item_ID"]), one=True)
+
+    if does_own is None:
+        # Add the entry into users
+        item_id = query_db(db, "Select Item_ID from Items where {0}=?".format(cat_uniques[item_category]), (item_unique,), one=True)
+        if item_id is not None:
+            item_id = item_id["Item_ID"]
+            effect_db(db, "Insert into Owners(User_ID, Item_ID) Values (?, ?)", (user_id, item_id))
+
+
 def return_items(db, user_id, item_type="Books"):
     item_IDs = query_db(db, "select Item_ID from Owners where User_ID=?", args=(user_id,))
     if item_IDs is None:
