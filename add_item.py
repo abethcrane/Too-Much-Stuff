@@ -10,8 +10,6 @@ cgitb.enable()
 
 from db_functions import *
 
-cat_uniques = {"Book": "ISBN", "DVD": "ISBN"}
-
 def check_digit(ISBN):
     total = 0
     if len(ISBN) is not 9:

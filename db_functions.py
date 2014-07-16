@@ -21,6 +21,9 @@ def query_db(db, query, args=(), one=False):
         return rv
 
 def add_item(db, item_category, item_unique, user_id):
+	
+	cat_uniques = {"Book": "ISBN", "DVD": "ISBN"}
+
     # Check if item already exists in items table
 
     item_exists = query_db(db, "Select * from Items where {0}=?".format(cat_uniques[item_category]), (item_unique,), one=True)
