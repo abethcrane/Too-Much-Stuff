@@ -132,6 +132,7 @@ def main():
         else:
             print
             print "Error, not all fields set"
+            print "user_id: {0}, item_unique: {1}".format(user_id, item_unique)
 
 if __name__ == "__main__":
     main()

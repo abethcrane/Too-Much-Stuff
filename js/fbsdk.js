@@ -42,6 +42,7 @@ function checkLoginState() {
 }
 
 function setCookies(auth, id, name) {
+	// TODO: if auth token changed then reload page
     document.cookie = "access_token="+auth
     document.cookie = "user_id="+id;
     document.cookie = "fb_name="+name;
