@@ -12,7 +12,7 @@
         <nav class="navbar  navbar-inverse" role="navigation">
             <div class="container fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/dashboard.py">Too Much Stuff</a>
+                    <a class="navbar-brand" href="/dashboard.py">Too Much Stuff</a> | {{title}
                 </div>
                 <p class="navbar-text" id="username">{% if name %}Hi {{name}}!{% endif %}</p>
                 <div class="navbar-collapse">
@@ -26,11 +26,6 @@
         </nav>
         {% endblock nav %}
         <div class="container-fluid">
-            {% block heading %}
-            <div class="page-header">
-                <h1 class="center">{{ title }}</h1>
-            </div>
-            {% endblock heading %}
             {% block content %}
             {% endblock content %}
         </div>
