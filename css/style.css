@@ -19,3 +19,7 @@
     padding-left: 10px;
     float: right;
 }
+
+.navbar-brand {
+    color: #31708f;
+}
