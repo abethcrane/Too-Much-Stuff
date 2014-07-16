@@ -22,10 +22,12 @@ $(document).ready( function() {
     	action = 'click';
     }
 
-	$('#add-item').on(action, {id: $('#string').val()}, addItem);
-	$('.friend').on(action, {id: $(this).attr('id')}, addFriend);
-	$('.delete').on(action, {id: $(this).attr('id')}, deleteItem);
-	$('#scan_button').on(action, Android.scanSomething);
+	$('#add-item').on(action, function () {addItem($('#string').val());});
+	$('.friend').on(action, function () {addFriend($(this).attr('id'));});
+	$('.delete').on(action, function () {deleteItem($(this).attr('id'));});
+	$('#scan_button').on(action, function () {
+		Android.scanSomething();
+	});
 	
     // Parse the ISBN String before allowing users to search with it
     // Updates as users type, or click out of the textbox
