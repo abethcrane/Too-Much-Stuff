@@ -26,9 +26,6 @@ $(document).ready( function() {
 	$('.friend').on(action, function () {addFriend($(this).attr('id'));});
 	$('.delete').on(action, function () {deleteItem($(this).attr('id'));});
 	$('#scan_button').on(action, function () {
-		for (var i in Android) {
-			alert(i+":"+Android[i]);
-		}
 		Android.scanSomething();
 	});
 	
