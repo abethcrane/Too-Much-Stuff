@@ -18,19 +18,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <p class="navbar-brand"><a href="/dashboard.py">Too Much Stuff</a>|{{title}}</p>
+                    <p class="navbar-brand"><a class="navbar-brand" href="/dashboard.py">Too Much Stuff</a>|{{title}}</p>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-1">>
                     <ul class="nav navbar-nav navbar-right" role="menu">
-                        <li class="navbar-text" id="username">{% if name %}Hi {{name}}!{% endif %}</p>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="/friends.py">Friends</a></li>
-                                <li><a href="/settings.py">Settings <i class="icon-cog icon-white the-icons"></i></a></li>
-                                <li><a href="#" id="logout">Logout</a></li>
-                            </ul>
-                        </li>
+                        <li class="navbar-text" id="username">{% if name %}Hi {{name}}!{% endif %}</li>
+                        <li><a href="/friends.py">Friends</a></li>
+                        <li><a href="/settings.py">Settings <i class="icon-cog icon-white the-icons"></i></a></li>
+                        <li><a href="#" class="warning" id="logout">Logout</a></li>
                     </ul>
                 </div>
             </div>
