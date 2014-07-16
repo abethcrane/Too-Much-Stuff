@@ -12,9 +12,17 @@
         <nav class="navbar  navbar-inverse" role="navigation">
             <div class="container fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/dashboard.py">Too Much Stuff</a> | {{title}}
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                    <a class="navbar-brand" href="/dashboard.py">Too Much Stuff</a>
+                    <p class="navbar-brand">| {{title}}</p>
                 </div>
-                <div class="navbar-collapse">
+                <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right" role="menu">
                         <li class="navbar-text" id="username">{% if name %}Hi {{name}}!{% endif %}</p>
                         <li class="dropdown">
@@ -22,7 +30,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="/friends.py">Friends</a></li>
                                 <li><a href="/settings.py">Settings <i class="icon-cog icon-white the-icons"></i></a></li>
-                                <li><a id="logout">Logout</a></li>
+                                <li><a href="#" id="logout">Logout</a></li>
                             </ul>
                         </li>
                     </ul>
