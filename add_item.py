@@ -11,19 +11,20 @@ cgitb.enable()
 from db_functions import *
 
 def add_item(db, item_category, item_unique, user_id):
-    
+
     cat_uniques = {"Book": "ISBN", "DVD": "ISBN"}
 
     # Check if item already exists in items table
 
     item_exists = query_db(db, "Select * from Items where {0}=?".format(cat_uniques[item_category]), (item_unique,), one=True)
     does_own = None
-    
+
     if item_exists is None:
         #TODO(bethc): Do  a lookup for other relevant fields to insert (e.g. book lookup for title)
         if item_category == "Book":
             title, author, image = get_book_data(item_unique)
-            effect_db(db, "Insert into Items(Category, ISBN, Title, Author, Image) Values (?, ?, ?, ?, ?)", args=(item_category, item_unique, title, author, image))
+            arguments = (item_category, item_unique, title, author, image)
+            effect_db(db, "Insert into Items(Category, ISBN, Title, Author, Image) Values (?, ?, ?, ?, ?)", args=arguments)
         else:
             effect_db(db, "Insert into Items(Category, {0}) Values (?, ?)".format(cat_uniques[item_category]), args=(item_category, item_unique))
     else:
@@ -69,7 +70,7 @@ def lookup_ISBN(ISBN):
         data = None
     finally:
         return data
-    
+
 def get_title(data):
     try:
         title = data["items"][0]["volumeInfo"]["title"]
@@ -107,18 +108,18 @@ def get_book_data(ISBN):
     author = get_author(data)
     image = get_image(data)
 
-    return title, author, image 
+    return title, author, image
 
 def main():
    # Get the params
    # Add the user item thing
     print "Content-Type: text/html"
-    
+
     con = sqlite3.connect("test.db")
     with con:
         db = con.cursor()
         user_id = get_user_id(db)
-        
+
         form = cgi.FieldStorage()
 
         item_id = None
