@@ -1,18 +1,21 @@
 {% extends "item_table.html" %}
             {% block add_item %}
-            <!-- Add new books --> 
+            <!-- Add new books -->
             <div class="row-fluid">
                 <!-- Start input features -->
                 <div class="span12">
-                    <form class="center" method="post" name="{{ form_name }}">
-                        <!-- Enter ISBN Text Box and Alerts-->
-                        <div class="category-unique control-group" style="visibility:visible; display: block;" id="add_item_2">
-                            <label class="help-inline" id="unique-label">ISBN&nbsp;</label>
-                            <input class="input-medium" name="item_unique" id="string" type="number" placeholder="Enter an ISBN">
-                            <small><span class="help-inline" id="unique-help"></span></small>
+                    <form class="form-horizontal center" role="form" method="post" name="{{ form_name }}">
+                        <div class="form-group category-unique">
+                            <div class="col-sm-3"></div><label class="col-sm-2 control-label" id="unique-label" for="isbnstring">ISBN&nbsp;</label>
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" id="isbnstring" placeholder="Enter an ISBN" name="item_unique">
+                            </div>
+                            <div class="col-sm-3">
+                                    <small><span class="help-inline" id="unique-help"></span></small>
+                            </div>
                         </div>
-                        <!-- Scan Barcode Button -->
                         <div>
+                            <!-- Scan Barcode Button -->
                             <button class="btn btn-primary" type="button" id="scan_button"><i class="icon-barcode icon-white"></i> Scan Barcode</button>
                             <!-- Enter ISBN Button -->
                             <button class="btn disabled btn-success" id="add-item" data-loading-text="Searching"><i class="icon-search"></i>Add Item</button>
@@ -20,11 +23,6 @@
                     </form>
                 </div>
                 <!-- End input features -->
-    
-                <!-- Alert Box -->
-                <div class="span4" id="alertSpace">
-                </div>
-                <!-- End Alert Box -->
             </div>
             <br/>
             {% endblock add_item %}

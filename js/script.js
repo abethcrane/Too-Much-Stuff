@@ -7,13 +7,13 @@ $(document).ready( function() {
     } else {
         window.Android = new MockAndroid();
     }
-    
+
     // Activates the alert space
     $(".alert").alert();
 
     // Activates all buttons
     $('.btn').button();
-    
+
 
     // Add the actions; but on mobile we use touchend for user friendliness
     if (window.onMobile) {
@@ -28,12 +28,12 @@ $(document).ready( function() {
     $('#scan_button').on(action, function () {
         Android.scanSomething();
     });
-    
+
     // Parse the ISBN String before allowing users to search with it
     // Updates as users type, or click out of the textbox
-    $("#string").bind('blur keyup change', function(){
-        var newISBN = sanitiseISBN($('#string').val());
-        $('#string').text(newISBN);
+    $("#isbnstring").bind('blur keyup change', function(){
+        var newISBN = sanitiseISBN($('#isbnstring').val());
+        $('#isbnstring').text(newISBN);
         errorCode = validISBN(newISBN);
         if (errorCode == "Valid ISBN") {
             $("#unique-help").removeClass("text-danger").addClass("text-success");
@@ -45,7 +45,7 @@ $(document).ready( function() {
             $('#add-item').addClass("disabled");
         }
     });
-    
+
 });
 
 
@@ -63,12 +63,12 @@ function throwError(errorMessage) {
         <button type='button' class='close' data-dismiss='alert'>x</button>\
         <strong>Error!</strong> Could not scan book"+errorMessage+"\
         </strong\
-    </div>"); 
+    </div>");
 }
 
 // Strips all non-digits out
 function sanitiseISBN(isbn) {
-    return isbn.replace(/[^0-9]/g, ''); 
+    return isbn.replace(/[^0-9]/g, '');
 }
 
 // Checks if the ISBN is a valid length
@@ -80,7 +80,7 @@ function validISBN(isbn) {
     } else {
         return "Valid ISBN";
     }
-    
+
 }
 
 // Clears the text field and sets the button to searching whilst it submits the form
