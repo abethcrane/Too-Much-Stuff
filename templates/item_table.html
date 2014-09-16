@@ -3,6 +3,16 @@
             {% block add_item %}
             {% endblock add_item %}
             {% if items and items|length %}
+	    <form class="center form-search form-inline">
+	    	<div class="form-group">
+			<label class="sr-only" for="searchbooks">Search</label>
+ 			<div class="input-group">
+ 				<input class="form-control" type="search" placeholder="Search books...">
+		  	        <div class="input-group-addon btn" type="submit"><span class="glyphicon glyphicon-search"></span></div>
+			</div>                
+		</div>
+            </form>
+	    <br/>              
             <div class = "table-responsive">
                 <table class="table table-striped table-bordered table-centered table-min center">
                     <tr>
