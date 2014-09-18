@@ -29,7 +29,9 @@ def return_items(db, user_id, search_term=None, item_type="Books"):
     if search_term is not None:
         query = "%{0}%".format(search_term)
         for i in item_IDs:
-            items.append(query_db(db, "select Item_ID, Title, Author FROM Items where Item_ID=? and (Title like ? or Author like ?)", args=(i['Item_ID'], query, query), one=True))
+            item = query_db(db, "select Item_ID, Title, Author FROM Items where Item_ID=? and (Title like ? or Author like ?)", args=(i['Item_ID'], query, query), one=True)
+            if item is not None and item != "":
+                items.append(item)
     else:
         for i in item_IDs:
             item = query_db(db, "select Item_ID,Title,Author from Items where Item_ID=?", args=(i['Item_ID'],), one=True)
