@@ -32,7 +32,9 @@ def return_items(db, user_id, search_term=None, item_type="Books"):
             items.append(query_db(db, "select Item_ID, Title, Author FROM Items where Item_ID=? and (Title like ? or Author like ?)", args=(i['Item_ID'], query, query), one=True))
     else:
         for i in item_IDs:
-            items.append(query_db(db, "select Item_ID,Title,Author from Items where Item_ID=?", args=(i['Item_ID'],), one=True))
+            item = query_db(db, "select Item_ID,Title,Author from Items where Item_ID=?", args=(i['Item_ID'],), one=True)
+            if item is not None and item != "":
+                items.append(item)
 
     return items
 
