@@ -33,7 +33,7 @@ $(document).ready( function() {
     // We want the search bar to also operate on 'enter'
     $('#query'.bind('keyup', function(event) {
         if (event.keyCode == 13) {
-            searchList($'#query').val();
+            searchList($('#query').val());
         }
     });
 
