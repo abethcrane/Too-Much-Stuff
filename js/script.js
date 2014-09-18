@@ -30,6 +30,13 @@ $(document).ready( function() {
         Android.scanSomething();
     });
 
+    // We want the search bar to also operate on 'enter'
+    $('#query'.bind('keyup', function(event) {
+        if (event.which == 13) {
+            searchList($'#query').val();
+        }
+    });
+
     // Parse the ISBN String before allowing users to search with it
     // Updates as users type, or click out of the textbox
     $("#isbnstring").bind('blur keyup change', function(){
