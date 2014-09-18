@@ -16,22 +16,27 @@ cgitb.enable()
 
 def main():
     print "Content-Type: text/html;"
-    
+
     cur_dir = os.path.dirname(__file__)
     con = sqlite3.connect(os.path.join(cur_dir, "test.db"))
     with con:
         db = con.cursor()
         form = cgi.FieldStorage()
-       
+
         user_id = get_user_id(db)
 
         if user_id is not None:
             template_dir=os.path.join(os.path.dirname(__file__),"templates")
             env=Environment(loader=FileSystemLoader(template_dir),autoescape=True)
-            
+
+            search_term = None
+            if 'search_term' in form:
+                search_term = sanitise_search(form.getvalue('search_term'))
+
             # Assuming we are displaying our own data
             template = env.get_template('own_library.html')
-            template_dict = {"name": get_name_from_cookie(), "title" :"My Library", "categories":["Book", "DVD"], "form_name":"addItem", "attributes":["Author", "Title"], "items":return_items(db, user_id), "own":True}
+            template_dict = {"name": get_name_from_cookie(), "title" :"My Library", "categories":["Book", "DVD"],
+                                     "form_name":"addItem", "attributes":["Author", "Title"], "items":return_items(db, user_id, search_term), "own":True}
 
             # If user is specified in url
             if 'friend_id' in form:
@@ -44,9 +49,12 @@ def main():
                     friend_name = query_db(db, "select name from Users where User_ID=?", args=(friend_id,), one = True)
                     if friend_name is not None:
                         friend_name = friend_name["name"]
+                    else:
+                        friend_name = "Your friend"
                     template = env.get_template('item_table.html')
-                    template_dict = {"name": get_name_from_cookie(), "title":"{0}'s Library".format(friend_name), "attributes":["Author", "Title"], "items":return_items(db, friend_id), "own":False}
-                
+                    template_dict = {"name": get_name_from_cookie(), "title":"{0}'s Library".format(friend_name), "attributes":["Author", "Title"],
+                                             "items":return_items(db, friend_id, search_term), "own":False}
+
             print
             print template.render(**template_dict)
         else:

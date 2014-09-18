@@ -20,16 +20,26 @@ def query_db(db, query, args=(), one=False):
     else:
         return rv
 
-def return_items(db, user_id, item_type="Books"):
+def return_items(db, user_id, search_term=None, item_type="Books"):
     item_IDs = query_db(db, "select Item_ID from Owners where User_ID=?", args=(user_id,))
     if item_IDs is None:
         return None
 
     items = []
-    for i in item_IDs:
-        items.append(query_db(db, "select Item_ID,Title,Author from Items where Item_ID=?", args=(i['Item_ID'],), one=True))
+    if search_term is not None:
+        query = "%{0}%".format(search_term)
+        for i in item_IDs:
+            items.append(query_db(db, "select Item_ID, Title, Author FROM Items where Item_ID=? and (Title like ? or auther like ?)", args=(i['Item_ID'], query, query), one=True))
+    else:
+        for i in item_IDs:
+            items.append(query_db(db, "select Item_ID,Title,Author from Items where Item_ID=?", args=(i['Item_ID'],), one=True))
+
     return items
-    
+
+def sanitise_search(search_term):
+    #TODO: Sanitise this
+    return search_term
+
 def add_user(db, fb_id, auth):
     effect_db(db, "insert into Users(name, FB_ID) Values(?,?)", args=(get_name(fb_id,auth), fb_id,))
 
@@ -38,7 +48,7 @@ def get_user_id(db):
     auth = None
     app_id = "1492256340991855"
     app_secret = "9c56bc1468a886c8d7fc986f3c3930e3"
-    
+
     # Access token generated from call to below API
     # https://graph.facebook.com/oauth/access_token?client_id={app-id}&client_secret={app-secret}&grant_type=client_credentials
     access_token="1492256340991855|W8gMh9CZ6mXCwTUVipyhYopdRVU"
@@ -49,13 +59,13 @@ def get_user_id(db):
 
         if "user_id" in cookie:
             user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(cookie["user_id"].value,), one=True)
-            
+
             # This must be a new user, create an entry for them
             if user_id is None:
                 add_user(db, cookie["user_id"].value, cookie["access_token"].value)
                 user_id = query_db(db, "select User_ID from Users where FB_ID=?", args=(cookie["user_id"].value,), one=True)
-            
-            if user_id is not None:    
+
+            if user_id is not None:
                 user_id = user_id["User_ID"]
 
     except (Cookie.CookieError, KeyError):
@@ -65,18 +75,18 @@ def get_user_id(db):
 
 def get_name_from_cookie():
     name = None
-    
+
     try:
         cookie = Cookie.SimpleCookie(os.environ["HTTP_COOKIE"])
         if "fb_name" in cookie:
             name = cookie["fb_name"].value
-        
+
         if name == "undefined":
             name = None
-        
+
     except (Cookie.CookieError, KeyError):
         name = ""
-        
+
     return name
 
 from fb_functions import *

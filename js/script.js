@@ -22,6 +22,7 @@ $(document).ready( function() {
         action = 'click';
     }
 
+    $('#search-items').on(action, function () {searchList($('#query').val());});
     $('#add-item').on(action, function () {addItem($('#string').val());});
     $('.friend').on(action, function () {addFriend($(this).attr('id'));});
     $('.delete').on(action, function () {deleteItem($(this).attr('id'));});
@@ -80,7 +81,6 @@ function validISBN(isbn) {
     } else {
         return "Valid ISBN";
     }
-
 }
 
 // Clears the text field and sets the button to searching whilst it submits the form
@@ -106,6 +106,15 @@ function addFriend(id) {
     });
 }
 
+function searchList(query) {
+    var friend_id = getUrlParameter('friend_id');
+    if (friend_id != undefined) {
+        location.replace('/dashboard.py?friend_id='+friend_id+'&search_term='+query);
+    } else {
+        location.replace('/dashboard.py?search_term='+query);
+    }
+}
+
 // Checks if the ISBN exists
 function checkValid(data) {
     if (data["totalItems"] == 0) {
@@ -113,4 +122,16 @@ function checkValid(data) {
     } else {
         return true;
     }
+}
+
+function getUrlParameter(param) {
+    var pageURL = window.location.search.substring(1);
+    var URLVariables = pageURL.split('&');
+    for (var i = 0; i < URLVariables.length; i++) {
+        var parameterName = URLVariables[i].split('=');
+        if (parameterName[0] == param) {
+            return parameterName[1];
+        }
+    }
+    return undefined;
 }

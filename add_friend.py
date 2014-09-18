@@ -17,9 +17,8 @@ def add_friend(db, user_id, friend_id):
 
 def main():
    # Get the params
-   # Delete the user's requested item
     print "Content-Type: text/html"
-    
+
     con = sqlite3.connect("test.db")
     with con:
         db = con.cursor()
