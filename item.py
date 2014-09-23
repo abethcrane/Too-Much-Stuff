@@ -10,7 +10,7 @@ class Item(object):
     def generic_item(self, identifier, category, id_type):
         self.__init__(identifier)
         self.id_type = id_type
-        self.data = {"Category"=category, self.id_type=self.id}
+        self.data = {"Category": category, self.id_type: self.id}
         #self.table = "{0}s".format(category)
 
     def insert(self):
@@ -43,9 +43,6 @@ class Book(Item):
         # TODO: possibly consider self.fields and we can set that to list all the things we want to look up
         # TODO: For now we don't want to use different tables, because we haven't set that up in the database.
         #self.table = "Books"
-
-    def exists_in_db(self, identifier, values):
-
 
     def get_book_data(self, ISBN):
         data = self.lookup_ISBN(ISBN)

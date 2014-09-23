@@ -32,7 +32,7 @@ def main():
 
         form = cgi.FieldStorage()
 
-        item_id = None
+        value = col= item_id = None
         if "id" in form:
             item_id = form.getvalue("id")
         if "column" in form:
@@ -40,7 +40,7 @@ def main():
         if "value" in form:
             value = form.getvalue("value")
 
-        if user_id is not None and item_id is not None:
+        if user_id is not None and item_id is not None and col is not None and value is not None:
             update_item(db, "Book", item_id, col, value, user_id) #Use book as the default item category
             print "Status: 303 Redirect"
             print "Location: dashboard.py"
