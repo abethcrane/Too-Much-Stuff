@@ -145,7 +145,9 @@ function setUpGrid(data) {
     var config = {
             enableSort: false,
             modelChanged: function(rowIdx, colIdx, oldValue, newValue, row) {
-                alert("Values: "+rowIdx+ " "+colIdx+ " "+oldValue+ " "+newValue+ " "+row + "!")
+                var id = row.id.replace("-row", "");
+                var col = editableGrid.getColumnName(colIdx);
+                $.post("update_item.py", {id: id, column: col, value: newValue}, function() {});
             }
     };
     editableGrid = new EditableGrid("Item Table", config);
