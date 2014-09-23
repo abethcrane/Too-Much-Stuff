@@ -1,6 +1,6 @@
 /*
  * editablegrid-2.0.1.css
- * 
+ *
  * This file is part of EditableGrid.
  * http://editablegrid.net
  *
@@ -8,17 +8,6 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://editablegrid.net/license
  */
-
-td.number {
-	text-align: right;
-	font-weight: bold;
-	padding-right: 5px;
-	white-space: nowrap;
-}
-
-td.boolean {
-	text-align: center;
-}
 
 th.boolean {
 	text-align: center;
