@@ -39,8 +39,8 @@ def main():
             # Set this up; if it's us we have delete, otherwise we'll redo it for our friend
             data = []
             for attr in attributes:
-                data.append({"name": attr, "datatype": "string", "editable": "true"})
-            data.append({"name":"Delete?", "datatype":"html", "editable":"false"})
+                data.append({"name": attr, "datatype": "string", "editable": True})
+            data.append({"name":"Delete?", "datatype":"html", "editable":False})
 
             # Assuming we are displaying our own data
             template = env.get_template('own_library.html')
@@ -66,7 +66,7 @@ def main():
 
                     data = []
                     for attr in attributes:
-                        data.append({"name": attr, "datatype": "string", "editable": "true"})
+                        data.append({"name": attr, "datatype": "string", "editable": True})
 
 
             print

@@ -23,9 +23,7 @@ $(document).ready( function() {
     }
 
     $('#search-items').on(action, function () {searchList($('#query').val());});
-    $('#add-item').on(action, function () {addItem($('#string').val());});
     $('.friend').on(action, function () {addFriend($(this).attr('id'));});
-    $('.delete').on(action, function () {deleteItem($(this).attr('id'));});
     $('#scan_button').on(action, function () {
         Android.scanSomething();
     });
@@ -152,4 +150,6 @@ function setUpGrid(data) {
     // then we attach to the HTML table and render it
     editableGrid.attachToHTMLTable('item-table');
     editableGrid.renderGrid();
+    $('#add-item').on(action, function () {addItem($('#string').val());});
+    $('.delete').on(action, function () {deleteItem($(this).attr('id'));});
 }
