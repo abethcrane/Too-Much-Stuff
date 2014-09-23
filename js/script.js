@@ -142,7 +142,13 @@ function getUrlParameter(param) {
 }
 
 function setUpGrid(data) {
-    editableGrid = new EditableGrid("Item Table");
+    var config = {
+            enableSort: false,
+            modelChanged: function(rowIdx, colIdx, oldValue, newValue, row) {
+                alert("Values: "+rowIdx+ " "+colIdx+ " "+oldValue+ " "+newValue+ " "+row + "!")
+            }
+    };
+    editableGrid = new EditableGrid("Item Table", config);
     //potentially use this modelChanged: function(rowIdx, colIdx, oldValue, newValue, row) { _$("message").innerHTML = "<p class='ok'>New value is '" + newValue + "'</p>"; }
     // from simple.js to call updateItem on change?
     // We build and load the metadata in Javascript
