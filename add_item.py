@@ -23,7 +23,7 @@ def add_item(db, item_category, item_unique, user_id):
     # If It doesn't exist in the database yet
     if item_ID is None:
         if item_category == "Book":
-            item = Book(item_unique)
+            item = Book(db, item_unique)
             item.insert()
         else:
             item.insert()
@@ -35,7 +35,7 @@ def add_item(db, item_category, item_unique, user_id):
     if does_own is None:
         # Add the entry into users
         if item_ID is not None:
-            effect_db(db, "Insert into Owners(User_ID, Item_ID) Values (?, ?)", (user_id, item_id))
+            effect_db(db, "Insert into Owners(User_ID, Item_ID) Values (?, ?)", (user_id, item_ID))
         #TODO: else?
 
 
