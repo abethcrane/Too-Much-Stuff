@@ -6,6 +6,7 @@ import sqlite3
 cgitb.enable()
 
 from db_functions import *
+from item import *
 
 def update_item(db, item_category, item_unique, column, value, user_id):
 

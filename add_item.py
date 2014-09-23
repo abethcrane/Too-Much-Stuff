@@ -9,6 +9,7 @@ import urllib2
 cgitb.enable()
 
 from db_functions import *
+from item import *
 
 def add_item(db, item_category, item_unique, user_id):
 
