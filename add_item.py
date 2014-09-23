@@ -16,7 +16,7 @@ def add_item(db, item_category, item_unique, user_id):
     cat_uniques = {"Book": "ISBN", "DVD": "ISBN"}
 
     # Check if item already exists in items table
-    item = Item.generic_item(item_unique, item_category, cat_uniques[item_category])
+    item = Item.generic_item(db, item_unique, item_category, cat_uniques[item_category])
     item_ID = item.get_db_id()
     does_own = None
 

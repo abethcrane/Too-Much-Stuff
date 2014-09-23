@@ -1,3 +1,5 @@
+from db_functions import *
+
 class Item(object):
 
     def __init__(self, db, identifier=None):
@@ -7,11 +9,12 @@ class Item(object):
         self.table = "Items"
 
     @classmethod
-    def generic_item(self, identifier, category, id_type):
-        self.__init__(identifier)
-        self.id_type = id_type
-        self.data = {"Category": category, self.id_type: self.id}
-        #self.table = "{0}s".format(category)
+    def generic_item(self, db, identifier, category, id_type):
+        item = Item(db, identifier)
+        item.id_type = id_type
+        item.data = {"Category": category, item.id_type: item.id}
+        #item.table = "{0}s".format(category)
+	return item
 
     def insert(self):
         question_marks = "?, " * (len(fields)-1) + "?"

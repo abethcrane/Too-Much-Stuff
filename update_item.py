@@ -10,8 +10,10 @@ from item import *
 
 def update_item(db, item_category, item_unique, column, value, user_id):
 
+    cat_uniques = {"Book": "ISBN", "DVD": "ISBN"}    
+
     # Find out item in the database
-    item = Item.generic_item(item_unique, item_category, cat_uniques[item_category])
+    item = Item.generic_item(db, item_unique, item_category, cat_uniques[item_category])
     item_ID = item.get_db_id()
 
     # TODO: Possibly check it already exists in db, but it really should
