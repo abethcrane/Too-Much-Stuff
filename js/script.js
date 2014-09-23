@@ -102,9 +102,9 @@ function addItem(id) {
 }
 
 function deleteItem(id) {
-    $.post("delete_item.py", {id: id}, function() {
-        location.reload();
-    });
+    var row_index = editableGrid.getRowIndex(id);
+    editableGrid.remove(row_index);
+    $.post("delete_item.py", {id: id}, function() {});
 }
 
 function addFriend(id) {
@@ -141,4 +141,15 @@ function getUrlParameter(param) {
         }
     }
     return undefined;
+}
+
+function setUpGrid(data) {
+    editableGrid = new EditableGrid("Item Table");
+    //potentially use this modelChanged: function(rowIdx, colIdx, oldValue, newValue, row) { _$("message").innerHTML = "<p class='ok'>New value is '" + newValue + "'</p>"; }
+    // from simple.js to call updateItem on change?
+    // We build and load the metadata in Javascript
+    editableGrid.load({ metadata: data});
+    // then we attach to the HTML table and render it
+    editableGrid.attachToHTMLTable('item-table');
+    editableGrid.renderGrid();
 }

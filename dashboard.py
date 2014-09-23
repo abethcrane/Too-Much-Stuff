@@ -33,10 +33,19 @@ def main():
             if 'search_term' in form:
                 search_term = sanitise_search(form.getvalue('search_term'))
 
+            # Get these from Item class eventually
+            attributes = ["Author", "Title"]
+
+            # Set this up; if it's us we have delete, otherwise we'll redo it for our friend
+            data = []
+            for attr in attributes:
+                data.append({"name": attr, "datatype": "string", "editable": "true"})
+            data.append({"name":"Delete?", "datatype":"html", "editable":"false"})
+
             # Assuming we are displaying our own data
             template = env.get_template('own_library.html')
             template_dict = {"name": get_name_from_cookie(), "title" :"My Library", "categories":["Book", "DVD"],
-                                     "form_name":"addItem", "attributes":["Author", "Title"], "items":return_items(db, user_id, search_term), "own":True}
+                                     "form_name":"addItem", "attributes":attributes, "items":return_items(db, user_id, search_term), "own":True}
 
             # If user is specified in url
             if 'friend_id' in form:
@@ -52,11 +61,16 @@ def main():
                     else:
                         friend_name = "Your friend"
                     template = env.get_template('item_table.html')
-                    template_dict = {"name": get_name_from_cookie(), "title":"{0}'s Library".format(friend_name), "attributes":["Author", "Title"],
+                    template_dict = {"name": get_name_from_cookie(), "title":"{0}'s Library".format(friend_name), "attributes":attributes,
                                              "items":return_items(db, friend_id, search_term), "own":False}
 
+                    data = []
+                    for attr in attributes:
+                        data.append({"name": attr, "datatype": "string", "editable": "true"})
+
             print
-            print template.render(**template_dict)
+            print data
+            print template.render(**template_dict, data=json.dumps(data))
         else:
             print "Status: 303 Redirect"
             print "Location: login.py"

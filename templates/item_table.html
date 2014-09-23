@@ -6,19 +6,7 @@
             <script src="js/editablegrid.js"></script>
             <script>
                 window.onload = function() {
-                    editableGrid = new EditableGrid("DemoGridAttach");
-                    // We build and load the metadata in Javascript
-                    editableGrid.load({ metadata: [
-                        {% for attribute in attributes %}
-                            { name: "{{attribute}}", datatype: "string", editable: true }{{#if @last}},{{/if}}
-                        {% endfor %}
-                        {% if own %}
-                            , { name: "Delete", datatype: "boolean", editable: true }
-                        {% endif %}
-                    ]});
-                    // then we attach to the HTML table and render it
-                    editableGrid.attachToHTMLTable('item-table');
-                    editableGrid.renderGrid();
+                    setUpGrid({{ data|safe }})
                 }
             </script>
             {% endblock header %}
