@@ -24,12 +24,13 @@ def main():
    # Get the params
    # Add the user item thing
     print "Content-Type: text/html"
-
+    print
+    print "Yay"
     con = sqlite3.connect("test.db")
     with con:
         db = con.cursor()
         user_id = get_user_id(db)
-
+        print user_id
         form = cgi.FieldStorage()
 
         value = col= item_id = None
@@ -39,6 +40,8 @@ def main():
             col = form.getvalue("column")
         if "value" in form:
             value = form.getvalue("value")
+
+        print item_id, col, value
 
         if user_id is not None and item_id is not None and col is not None and value is not None:
             update_item(db, "Book", item_id, col, value, user_id) #Use book as the default item category
