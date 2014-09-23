@@ -70,7 +70,6 @@ def main():
 
 
             print
-            print data
             template_dict["data"] = json.dumps(data)
             print template.render(**template_dict)
         else:
