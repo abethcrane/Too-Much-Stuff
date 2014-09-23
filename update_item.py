@@ -16,9 +16,8 @@ def update_item(db, item_category, item_id, column, value, user_id):
     # TODO: Possibly make this be a local change not global, but for now YOLO
 
     # Now modify item in database
-    print
-    print "Update {0} set {1}='{2}' where Item_ID={3}".format(item.table, column, value, item_id)
-    effect_db(db, "Update {0} set {1}='{2}' where Item_ID=?".format(item.table, column, value), (item_id,))
+    #TODO: Make the tables not a default Items thing
+    effect_db(db, "Update {0} set {1}='{2}' where Item_ID=?".format("Items", column, value), (item_id,))
 
 def main():
    # Get the params
