@@ -102,7 +102,7 @@ function addItem(id) {
 }
 
 function deleteItem(id) {
-    var row_index = editableGrid.getRowIndex(id);
+    var row_index = editableGrid.getRowIndex(id+"-row");
     editableGrid.remove(row_index);
     $.post("delete_item.py", {id: id}, function() {});
 }

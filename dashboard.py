@@ -68,9 +68,11 @@ def main():
                     for attr in attributes:
                         data.append({"name": attr, "datatype": "string", "editable": "true"})
 
+
             print
             print data
-            print template.render(**template_dict, data=json.dumps(data))
+            template_dict["data"] = json.dumps(data)
+            print template.render(**template_dict)
         else:
             print "Status: 303 Redirect"
             print "Location: login.py"

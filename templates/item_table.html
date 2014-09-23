@@ -37,7 +37,7 @@
                         {% endif %}
                     </tr>
                     {% for item in items %}
-                    <tr>
+                    <tr id="{{item.Item_ID}}-row">
                         <td>{{item.Author}}</td>
                         <td>{{item.Title}}</td>
                         {% if own %}
