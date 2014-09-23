@@ -6,21 +6,19 @@ import sqlite3
 cgitb.enable()
 
 from db_functions import *
-from item import *
 
-def update_item(db, item_category, item_unique, column, value, user_id):
+def update_item(db, item_category, item_id, column, value, user_id):
 
     cat_uniques = {"Book": "ISBN", "DVD": "ISBN"}
 
     # Find out item in the database
-    item = Item.generic_item(db, item_unique, item_category, cat_uniques[item_category])
-    item_ID = item.get_db_id()
-
     # TODO: Possibly check it already exists in db, but it really should
     # TODO: Possibly make this be a local change not global, but for now YOLO
 
     # Now modify item in database
-    effect_db(db, "Update {0} set {1}='{2}' where Item_ID=?".format(item.table, column, value), (item_ID,))
+    print
+    print "Update {0} set {1}='{2}' where Item_ID={3}".format(item.table, column, value, item_id)
+    effect_db(db, "Update {0} set {1}='{2}' where Item_ID=?".format(item.table, column, value), (item_id,))
 
 def main():
    # Get the params
