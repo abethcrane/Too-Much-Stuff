@@ -2,13 +2,6 @@
             {% block header  %}
             <!-- Editable grid -->
             <link href="css/editablegrid.css" rel="stylesheet" media="screen">
-            <!-- Editable tables (for the item lists) -->
-            <script src="js/editablegrid.js"></script>
-            <script>
-                window.onload = function() {
-                    setUpGrid({{ data|safe }})
-                }
-            </script>
             {% endblock header %}
             {% block content %}
             {% block add_item %}
@@ -51,3 +44,12 @@
             <p class="center">No items to display</p>
             {% endif %}
             {% endblock content %}
+            {% block scripts %}
+            <!-- Editable tables (for the item lists) -->
+            <script src="js/editablegrid.js"></script>
+            <script>
+                window.onload = function() {
+                    setUpGrid({{ data|safe }})
+                }
+            </script>
+            {% endblock scripts %}
