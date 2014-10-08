@@ -40,8 +40,12 @@
                     {% endfor %}
                 </table>
             </div>
+            {% else %}
+            <p class="center">No items to display</p>
+            {% endif %}
             {% endblock content %}
             {% block scripts %}
+            {% if items and items|length %}
             <!-- Editable tables (for the item lists) -->
             <script src="js/editablegrid.js"></script>
             <script>
@@ -49,8 +53,5 @@
                     setUpGrid({{ data|safe }})
                 }
             </script>
-            {% endblock scripts %}
-            {% else %}
-            <p class="center">No items to display</p>
             {% endif %}
-            {% endblock content %}
+            {% endblock scripts %}
