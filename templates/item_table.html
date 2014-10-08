@@ -40,9 +40,6 @@
                     {% endfor %}
                 </table>
             </div>
-            {% else %}
-            <p class="center">No items to display</p>
-            {% endif %}
             {% endblock content %}
             {% block scripts %}
             <!-- Editable tables (for the item lists) -->
@@ -53,3 +50,7 @@
                 }
             </script>
             {% endblock scripts %}
+            {% else %}
+            <p class="center">No items to display</p>
+            {% endif %}
+            {% endblock content %}
